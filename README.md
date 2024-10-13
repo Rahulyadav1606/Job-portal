@@ -1,3 +1,10 @@
+stpes to run this:-
+stpe 1: 
+
+
+
+
+     
 ![image](https://github.com/user-attachments/assets/cedde798-ed46-45a3-a033-34a581a53462)
 ![image](https://github.com/user-attachments/assets/13d16c89-059e-48d3-addb-3780af4155d2)
 ![image](https://github.com/user-attachments/assets/45f3cd71-45c1-46ac-a275-bb5579b0e24c)
