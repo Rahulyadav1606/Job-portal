@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+      * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f1f1;
+    padding-top: 60px;
+    scroll-behavior: smooth;
+}
+.container {
+            height: 35vh;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .container h1 {
+            padding-top: 30px;
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .container form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .container input[type="text"], select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            box-shadow: 0 6px 5px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            width: 180px;
+        }
+        .container input[type="text"] {
+            flex: 1;
+        }
+        .container button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color:#8e7575;
+            box-shadow: 0 6px 5px rgba(0, 0, 0, 0.2);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .container button:hover {
+            background-color: indianred;
+        }
+        .container p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        .container .more-jobs {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #8e7575;
+            border: 2px solid#8e7575;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .container .more-jobs:hover {
+            background-color: indianred;
+            color: white;
+        }
+header {
+    position: fixed;
+    top: 0;
+    height: 60px;
+    width: 100%;
+    background-color: #8e7575;
+    display: flex;
+    border-radius: 9px;
+
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 6px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: background-color 0.3s;
+}
+
+header:hover {
+    background-color: #6b5a5a; /* Darker shade on hover */
+}
+
+header ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+li {
+    margin: 0 15px;
+    display: flex;
+    align-items: center;
+}
+
+li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+.contain a{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+.logo a  {
+    text-decoration: none;
+    color: white;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+
+       ul a:hover {
+    color: indianred;
+}
+
+.user-info {
+    color: white;
+    font-weight: bold;
+    margin-right: 10px;
+
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.logout-icon {
+    margin-left: 5px;
+    transition: transform 0.3s;
+}
+
+.user-info:hover .logout-icon {
+    transform: rotate(180deg);
+}
+
+.pop {
+    height: 50px;
+    width: 50px;
+    border: 2px solid #4bbfe6;
+    border-radius: 50%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 30px;
+    right: 30px;
+    background-color: white;
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+    z-index: 300;
+}
+
+.pop:hover {
+    background-color: #e7f5ff;
+}
+
+#pop {
+    color: #34af85;
+    font-size: 1.5em;
+}
+
+.logout-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+    .search input {
+        width: 200px;
+    }
+
+    header ul {
+        flex-direction: column;
+    }
+
+    header {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .pop {
+        bottom: 20px;
+        right: 20px;
+    }
+}
+.contain {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.job-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 400px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.job-card h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+.job-card p {
+    margin: 5px 0;
+    color: #666;
+}
+
+.job-card button {
+    background-color: #8e7575;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.job-card button:hover {
+    background-color: indianred;
+}
+
+.job-card .time {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    font-size: 12px;
+    color: #999;
+}
+
+
+.social-icons a {
+    margin: 0 10px;
+    color: #5c4d4d;
+    transition: transform 0.3s;
+}
+
+.social-icons a:hover {
+    transform: scale(1.2);
+}
+footer {
+    background-color: #8e7575; /* Match the header color */
+    color: white;
+    text-align: center;
+    padding: 20px 20px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between icons */
+    margin-bottom: 20px;
+}
+
+.footer-links a {
+    color: white;
+    font-size: 1.5em; /* Increased icon size */
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: indianred; /* Change color on hover */
+}
+
+.contact-details {
+    margin: 15px 0;
+    font-size: 0.9em; /* Smaller font for contact details */
+}
+
+.footer-copy {
+    font-size: 0.8em; /* Smaller font for copyright */
+    margin-top: 10px;
+}
+.content-box img{
+    height: 30vh;
+}
+#add{
+    color: #5c4d4d;
+}
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo">
+  <a href="{% url 'home' %}">Job Portal</a></div>
+    <ul>
+        <li><a id="aboutus" href="#">About Us</a></li>
+         <li class="user-info" id="user-info" onclick="toggleLogout()">
+            {{ request.applicant.username }} <i class="fas fa-sign-out-alt logout-icon"></i>
+        </li>
+        <li id="logout" style="display: none; color: black">
+            <a id="login" href="{% url 'logout' %}">Logout</a>
+        </li>
+    </ul>
+</header>
+<div class="pop">
+    <a href="{% url 'contact' %}"><i id="pop" class="fa-solid fa-phone"></i></a>
+</div>
+<script>
+    function toggleLogout() {
+        const logout = document.getElementById('logout');
+        logout.style.display = logout.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function viewResume() {
+        // Logic to view the resume
+        alert("Viewing your resume...");
+    }
+
+    function downloadResume() {
+        // Logic to download the resume
+        alert("Downloading your resume...");
+    }
+</script>
+</body>
+</html>

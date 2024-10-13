@@ -1,0 +1,154 @@
+{% extends "header_main.html" %}
+{% block body %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details Page</title>
+    <style>
+        /* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f1f1;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 100px auto;
+}
+
+/* Job Header styling */
+.job-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.job-header h1 {
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.job-header p {
+    font-size: 1.25rem;
+    color: #666;
+}
+
+.apply-btn {
+    margin-top: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #8e7575;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.apply-btn:hover {
+    background-color: indianred;
+}
+
+/* Job Details styling */
+.job-details {
+    margin-bottom: 40px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section h3 {
+    font-size: 1.5rem;
+    font-weight: bolder;
+    color: #333;
+}
+
+.section p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Cards container styling */
+.cards-container {
+    display: flex;
+    gap: 20px;
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 40vh;
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card h5 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.card p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.card-footer {
+    font-size: 0.875rem;
+    color: #999;
+    text-align: right;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Job Title and Details -->
+        <div class="job-header">
+            <h1>{{ job.title }}</h1>
+            <p>{{ job.location }} | {{ job.job_type }} | NGN{{ job.salary }}</p>
+            <button class="apply-btn"><a href="{% url 'applicant_login' %}">Login to Apply</a></button>
+        </div>
+        <div class="job-details">
+            <div class="section">
+                <h3>Job Requirements</h3>
+                <p>{{ job.requirements }}</p>
+            </div>
+            <div class="section">
+                <h3>Ideal Candidate</h3>
+                <p>{{ job.ideal_candidate }}</p>
+            </div>
+        </div>
+
+        <div class="cards-container">
+            <div class="card">
+                <h5>Other Details</h5>
+                <p>{{ job.other_details }}</p>
+                <div class="card-footer">Last updated {{ job.created_at|timesince }}</div>
+            </div>
+
+            <div class="card">
+                <h5>About the Company</h5>
+                <p>INFOSYS</p>
+                <p>KOLKATA</p>
+                <p>Founded: 2001</p>
+                <div class="card-footer">Last updated {{ job.created_at|timesince }}</div>
+            </div>
+
+            <div class="card">
+                <h5>Related Jobs</h5>
+                <p>This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                <div class="card-footer">Last updated {{ job.created_at|timesince }}</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock%}

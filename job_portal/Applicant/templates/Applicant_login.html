@@ -1,0 +1,195 @@
+{% extends "header_a.html" %}
+{% block body %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    {% load static %}
+    <style>
+        body {
+            background-color: #f4f1f1;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            gap: 100px;
+            padding: 0 20px;
+        }
+        .info-section {
+            width: 30vw;
+            padding: 40px 30px;
+            color: #8e7575;
+            margin-right: 100px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards;
+        }
+        .info-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            padding: 10px 10px;
+            margin-bottom: 20px;
+        }
+        .info-section p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .con {
+            background-color: #d8cdcd;
+            width: 25vw;
+            height: 50vh;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s 0.5s forwards;
+        }
+        .con p {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .input-container {
+            position: relative;
+        }
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 25px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        .toggle-password {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        .for:hover {
+            cursor: pointer;
+            opacity: 0.7;
+        }
+        .for {
+            font-weight: 500;
+            margin-bottom: 15px;
+            text-align: right;
+            color: #007bff;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #8e7575;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: indianred;
+        }
+        .error-message {
+            color: red;
+            font-size: 1rem;
+            margin: 10px 0;
+            display: none; /* Initially hidden */
+        }
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .for a{
+            color: #007bff;
+            font-weight: lighter;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="info-section">
+            <h2>Welcome to Job Portal</h2>
+            <p>Find your dream job easily with personalized job recommendations.</p>
+            <p>Track your applications in real-time and receive notifications for new opportunities.</p>
+            <p>Get expert career advice and tips to improve your profile and applications.</p>
+        </div>
+
+        <div class="con">
+            <p>Applicant Login</p>
+            <form action="{% url 'applicant_login' %}" method="post">
+                {% csrf_token %}
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <label for="password">Password:</label>
+                <div class="input-container">
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <span class="toggle-password" onclick="togglePasswordVisibility()">
+                        <i id="eye-icon" class="fa fa-eye-slash"></i>
+                    </span>
+                </div>
+
+                <!-- Error message will be displayed here -->
+                {% if messages %}
+                <div class="error-message" style="display: block;">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="for"><a href="{% url 'passwordreset' %}">Forgot Password?</a></div>
+                <p><button type="submit">Login</button></p>
+            </form>
+        </div>
+    </div>
+      <script>
+        function togglePasswordVisibility() {
+            var passwordField = document.getElementById("password");
+            var eyeIcon = document.getElementById("eye-icon");
+
+            // Toggle password visibility
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            } else {
+                passwordField.type = "password";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            }
+        }
+    </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+
+</body>
+{% endblock %}

@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding-top: 60px;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            height: 60px;
+            width: 100%;
+            background-color: #8e7575;
+            display: flex;
+            border-radius: 9px;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 6px 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        header ul {
+            list-style: none;
+            display: flex;
+        }
+        li {
+            margin: 0 15px;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+       .logo a  {
+    text-decoration: none;
+    color: white;
+    font-size: 1.8em;
+    font-weight: bold;
+}
+        a:hover {
+            color: indianred;
+        }
+        .pop {
+            height: 50px;
+            width: 50px;
+            border: 2px solid #4bbfe6;
+            border-radius: 50%;
+            position: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            bottom: 30px;
+            right: 30px;
+            background-color: white;
+            box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+        .pop:hover {
+            background-color: #e7f5ff;
+        }
+        #pop {
+            color: #34af85;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+<body>
+<header>
+   <div class="logo"><a href="{% url 'home' %}">Job Portal</a></div>
+    <ul>
+        <li><a id="aboutus" href="#">About Us</a></li>
+        <li><a id="forjob" href="#">Looking For Job?</a></li>
+        <li><a id="product" href="#">Product</a></li>
+        <li><a id="login" href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+</header>
+<div class="pop">
+    <a href="{% url 'contact' %}"><i id="pop" class="fa-solid fa-phone"></i></a>
+</div>
+{% block body %}{% endblock%}
+</body>
+</html>

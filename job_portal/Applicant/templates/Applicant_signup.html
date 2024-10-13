@@ -1,0 +1,172 @@
+{% extends "header2.html" %}
+{% block body %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f1f1;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            gap: 100px;
+            padding: 0 20px;
+        }
+        .info-section {
+            width: 30vw;
+            padding: 40px 30px;
+            color: #8e7575;
+            margin-right: 100px;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s forwards;
+        }
+        .info-section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .info-section p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .con {
+            background: #d8cdcd;
+            width: 30vw;
+            height: 80vh;
+            padding: 40px;
+            margin-top: 5px;
+            border-radius: 25px;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s 0.5s forwards;
+        }
+        .con p {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            width: 100%;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="email"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+        .for:hover {
+            cursor: pointer;
+            opacity: 0.7;
+        }
+        .for {
+            font-weight: 500;
+            margin-bottom: 15px;
+            text-align: right;
+            color: #007bff;
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 15px;
+            background-color: #8e7575;
+            color: white;
+            border: none;
+            margin-top: 15px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+        .foot {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .foot a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        .foot a:hover {
+            color: #8e7575;
+        }
+
+        /* Animation keyframes */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="info-section">
+            <h2>Welcome to Our Job Portal</h2>
+            <p>Find the best job opportunities that match your profile. Sign up today and take the next step in your career journey!</p>
+            <p>Join a community of professionals and get personalized job recommendations directly to your inbox.</p>
+        </div>
+
+        <div class="con">
+            <p>Applicant Sign Up</p>
+            <form action="{% url 'applicant_signup' %}" method="post">
+                {% csrf_token %}
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required minlength="4" maxlength="20"
+                       pattern="[A-Za-z0-9_]+" placeholder="username"
+                       title="Username should be 4-20 characters long and contain only letters, numbers, and underscores.">
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="password" required>
+
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="confirm password" required>
+
+                <button type="submit">Sign Up</button>
+            </form>
+            <div class="foot">
+                <a href="{% url 'applicant_login' %}">Already have an account? Login</a>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

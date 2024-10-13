@@ -1,0 +1,114 @@
+{% extends "header2.html" %}
+{% block body %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            max-width: 1200px;
+        }
+
+        .box {
+            background: #fdfafa;
+            width: 45%;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .companies {
+            background: #ddd5d5;
+        }
+
+        .label {
+            background-color: #8e7575;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        h2 {
+            color: #8e7575;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .btn-login {
+            background-color: #8e7575;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            text-decoration: none;
+        }
+          a{
+              text-decoration: none;
+              color: white;
+              font-weight: bold;
+          }
+        .btn-login:hover {
+            background-color: indianred;
+        }
+
+        .account a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .account a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box companies">
+            <div class="label">BUSINESS</div>
+            <h2>For Recruiter</h2>
+            <p>Streamline your hiring process and find the best talent quickly with our innovative recruitment solutions</p>
+            <button class="btn-login"><a href="{% url 'login' %}">Login.</a></button>
+            <p class="account">Don't have an account? <a href="{% url 'signup' %}">Signup</a>
+        </div>
+        <div class="box developers">
+            <h2>For Applicant</h2>
+            <p>Unlock your potential, build your career, and connect with top companies worldwide</p>
+            <button class="btn-login"><a href="{% url 'applicant_login' %}">Login.</a></button>
+            <p class="account">Don't have an account? <a href="{% url 'applicant_signup' %}">Sign up.</a></p>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

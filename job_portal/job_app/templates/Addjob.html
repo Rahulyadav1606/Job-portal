@@ -1,0 +1,165 @@
+{% extends "header_main.html" %}
+{% block body %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Job</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:#f4f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 450px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: white;
+            height: 30px;
+            font-weight: bolder;
+            font-size: 22px;
+            background-color: #8e7575;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+            font-size: 14px;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="number"],
+        .form-container select,
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        .form-container textarea {
+            height: 80px;
+            resize: none;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #8e7575;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-container button:hover {
+            background-color: #486767;
+        }
+              .notification {
+            display: none; /* Hidden by default */
+            padding: 15px;
+            background-color: #4CAF50; /* Green */
+            color: white;
+            border-radius: 5px;
+            position: fixed; /* Stay in place */
+            top: 20px; /* Position it at the top */
+            right: 20px; /* Position it to the right */
+            z-index: 1000; /* Ensure it's on top of other elements */
+            transition: opacity 0.5s ease; /* Smooth transition for fade out */
+        }
+    </style>
+
+</head>
+<body>
+<div class="notification" id="notification"></div>
+<div class="form-container">
+    <h2>{% if job %}{{ job.title }}{% else %}Add New Job{% endif %}</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="title">Job Title</label>
+        <input type="text" id="title" name="title" placeholder="Enter Job Title" required value="{% if job %}{{ job.title }}{% else %}{% endif %}">
+
+        <label for="industry">Industry</label>
+        <input type="text" id="industry" name="industry" placeholder="Enter Industry" required value="{% if job %}{{ job.industry }}{% else %}{% endif %}">
+
+        <label for="job_type">Job Type</label>
+        <select id="job_type" name="job_type" required>
+            <option value="">Choose Job Type</option>
+            <option value="Remote" {% if job and job.job_type == 'Remote' %}selected{% endif %}>Remote</option>
+            <option value="Onsite" {% if job and job.job_type == 'Onsite' %}selected{% endif %}>Onsite</option>
+            <option value="Hybrid" {% if job and job.job_type == 'Hybrid' %}selected{% endif %}>Hybrid</option>
+        </select>
+
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" placeholder="Enter Location" required value="{% if job %}{{ job.location }}{% else %}{% endif %}">
+
+        <label for="salary">Salary</label>
+        <input type="number" id="salary" name="salary" placeholder="Enter Salary" required value="{% if job %}{{ job.salary }}{% else %}{% endif %}">
+
+        <label for="requirements">Job Requirements</label>
+        <textarea id="requirements" name="requirements" placeholder="Enter Job Requirements" required>
+            {% if job %}
+                {{ job.requirements }}
+            {% else %}
+            {% endif %}
+        </textarea>
+
+        <label for="ideal_candidate">Ideal Candidate</label>
+        <textarea id="ideal_candidate" name="ideal_candidate" placeholder="Describe the Ideal Candidate" required>
+            {% if job %}
+                {{ job.ideal_candidate }}
+            {% else %}
+            {% endif %}
+        </textarea>
+
+        <div class="checkbox-container">
+            <input type="checkbox" id="availability" name="availability" {% if job and job.availability %}checked{% endif %}>
+            <label for="availability">Is this job currently available?</label>
+        </div>
+
+        <button type="submit">{% if job %}Update Job{% else %}Add Job{% endif %}</button>
+    </form>
+</div>
+ <script>
+        // Function to show notification
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.innerText = message; // Set the message
+            notification.style.display = 'block'; // Show the notification
+            notification.style.opacity = 1; // Set opacity to fully visible
+
+            // Fade out after 3 seconds
+            setTimeout(() => {
+                notification.style.opacity = 0; // Start fading out
+                setTimeout(() => {
+                    notification.style.display = 'none'; // Hide the notification
+                }, 500); // Wait for the fade out to complete
+            }, 3000); // Notification visible for 3 seconds
+        }
+
+        // Check for messages and show notification
+        {% if messages %}
+            {% for message in messages %}
+                showNotification("{{ message }}"); // Call function to show message
+            {% endfor %}
+        {% endif %}
+    </script>
+</body>
+</html>
+{% endblock %}
