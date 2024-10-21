@@ -24,7 +24,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('job_app.urls')),
-    path('', include('app_1.urls')),
     path('', include('authenticate.urls')),
     path('',include('Applicant.urls')),
     path('password-reset/', auth_views.PasswordResetView.as_view(template_name='ResetPassword.html'), name='password_reset'),

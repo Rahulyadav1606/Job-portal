@@ -1,5 +1,4 @@
 
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,11 +23,10 @@
             width: 100%;
             background-color: #8e7575;
             display: flex;
-            border-radius: 9px;
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
-            box-shadow: 0 6px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
             z-index: 1000;
         }
         header ul {
@@ -44,15 +42,33 @@
             font-weight: bold;
             transition: color 0.3s;
         }
-       .logo a  {
-    text-decoration: none;
-    color: white;
-    font-size: 1.8em;
-    font-weight: bold;
-}
+        .logo {
+            color: white;
+            font-size: 1.5em;
+        }
         a:hover {
             color: indianred;
         }
+
+.user-info {
+    color: white;
+    font-weight: bold;
+    margin-right: 10px;
+
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.logout-icon {
+    margin-left: 5px;
+    transition: transform 0.3s;
+}
+
+.user-info:hover .logout-icon {
+    transform: rotate(180deg);
+}
         .pop {
             height: 50px;
             width: 50px;
@@ -79,19 +95,17 @@
 </head>
 <body>
 <header>
-   <div class="logo"><a href="{% url 'home' %}">Job Portal</a></div>
+    <div class="logo">
+        Job Portal
+    </div>
     <ul>
-        <li><a id="aboutus" href="#">About Us</a></li>
-        <li><a id="forjob" href="#">Looking For Job?</a></li>
-        <li><a id="product" href="#">Product</a></li>
-        <li><a id="login" href="{% url 'logout' %}">Logout</a></li>
+        <li><a id="apphome" href="{% url 'Applicant_dashboard' %}">Applicant Dashboard</a></li>
     </ul>
 </header>
 <div class="pop">
-    <a href="{% url 'contact' %}"><i id="pop" class="fa-solid fa-envelope"></i></a>
+    <a href="{% url 'contact' %}"><i id="pop" class="fa-solid fa-phone"></i></a>
 </div>
-{% block body %}
 
-{% endblock %}
+{% block body %}{% endblock%}
 </body>
 </html>

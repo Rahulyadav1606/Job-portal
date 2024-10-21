@@ -35,7 +35,6 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'Applicant.apps.ApplicantConfig',
     'authenticate.apps.AuthenticateConfig',
-    'app_1.apps.App1Config',
     'job_app.apps.JobAppConfig',
     'rest_framework',
     'rest_framework.authtoken',
@@ -141,3 +140,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'alexrahul9576@gmail.com'
 EMAIL_HOST_PASSWORD = 'rwke efgr dokr dzbr'
 DEFAULT_FROM_EMAIL = 'webmaster@yourdomain.com'
+
+LOGIN_URL = 'login'  # This should match the name defined in urls.py
+LOGIN_REDIRECT_URL = 'manage_jobs'  # Redirect after login
+LOGOUT_REDIRECT_URL = 'login'  # Redirect after logout
