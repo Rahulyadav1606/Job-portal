@@ -33,8 +33,12 @@ def manage_jobs(request):
 def Applicant_dashboard(request):
     applicant_id = request.session.get('applicant_id')
     if applicant_id:
-        applicant = Applicant.objects.get(id=applicant_id)
-        has_resume = Resume.objects.filter(applicant=applicant).exists()
+        try:
+            applicant = Applicant.objects.get(id=applicant_id)
+            has_resume = Resume.objects.filter(applicant=applicant).exists()
+        except Applicant.DoesNotExist:
+            applicant = None
+            has_resume = False
     else:
         applicant = None
         has_resume = False
@@ -44,6 +48,7 @@ def Applicant_dashboard(request):
         'has_resume': has_resume,
         'request': request
     })
+
 
 def applicant_login(request):
     if request.method == 'POST':

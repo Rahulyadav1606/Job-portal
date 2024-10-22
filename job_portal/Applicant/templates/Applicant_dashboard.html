@@ -239,7 +239,7 @@
         <li class="user-info" id="user-info" onclick="toggleLogout()">
 <!--            <img src="{% static 'images/img.jpg' %}" alt="">-->
             {% if applicant %}
-                {{ applicant.username }} <i class="fas fa-sign-out-alt logout-icon"></i>
+                <p id="rec">Applicant </p>{{ applicant.username }} <i class="fas fa-sign-out-alt logout-icon"></i>
             {% endif %}
         </li>
         <li id="logout" style="display: none; color: black">

@@ -55,7 +55,7 @@
             font-size: 1.8em;
             font-weight: bold;
         }
-       .logo a:hover {
+        .logo a:hover {
             color: indianred;
         }
         .user-info {
@@ -88,16 +88,32 @@
 <header>
     <div class="logo"><a href="{% url 'home' %}">Job Portal</a></div>
     <ul>
-        <li><a id="aboutus" href="#about">About Us</a></li>
-        <li><a id="forjob" href="{% url 'Addjob' %}">Add Job</a></li>
-        <li><a id="managejob" href="{% url 'Managejobs' %}">Manage Jobs</a></li>
-        <li><a id="product" href="{% url 'resume' %}">Resume/CV</a></li>
-        <li class="user-info" id="user-info" onclick="toggleLogout()">
-            {{ request.user.username }} <i class="fas fa-sign-out-alt logout-icon"></i>
-        </li>
-        <li id="logout" style="display: none; color: black">
-            <a id="login" href="{% url 'logout' %}">Logout</a>
-        </li>
+       {% if applicant_username %}
+    <!-- Applicant logged in -->
+    <li><a id="aboutus" href="#about">About Us</a></li>
+    <li><a id="product" href="{% url 'resume' %}">Resume/CV</a></li>
+    <li class="user-info" id="user-info" onclick="toggleLogout()">
+        Applicant: {{ applicant_username }} <i class="fas fa-sign-out-alt logout-icon"></i>
+    </li>
+    <li id="logout" style="display: none; color: black">
+        <a id="login" href="{% url 'logout' %}">Logout</a>
+    </li>
+{% elif user.is_authenticated %}
+    <!-- Recruiter (assuming recruiter uses Django's User model) -->
+    <li><a id="aboutus" href="#about">About Us</a></li>
+    <li><a id="forjob" href="{% url 'Addjob' %}">Add Job</a></li>
+    <li><a id="managejob" href="{% url 'Managejobs' %}">Manage Jobs</a></li>
+    <li class="user-info" id="user-info" onclick="toggleLogout()">
+        Recruiter: {{ request.user.username }} <i class="fas fa-sign-out-alt logout-icon"></i>
+    </li>
+    <li id="logout" style="display: none; color: black">
+        <a id="login" href="{% url 'logout' %}">Logout</a>
+    </li>
+{% else %}
+    <!-- Not logged in -->
+    <li><a id="login" href="{% url 'login' %}">Login</a></li>
+{% endif %}
+
     </ul>
 </header>
 

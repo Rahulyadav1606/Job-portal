@@ -118,11 +118,70 @@ def delete_job(request, job_id):
 
 
 
+# from django.shortcuts import render
+from .models import Job
+
+from Applicant.models import Applicant,Resume
+
 def home(request):
-
     jobs = Job.objects.order_by('-created_at')[:9]
-    return render(request, 'home.html', {'jobs': jobs})
 
+    # Get the applicant ID from the session
+    applicant_id = request.session.get('applicant_id')
+    applicant_username = None
+    recruiter_username = None
+
+    # If the applicant is logged in, get their username
+    if applicant_id:
+        try:
+            applicant = Applicant.objects.get(id=applicant_id)
+            applicant_username = applicant.username
+        except Applicant.DoesNotExist:
+            applicant_username = None
+
+    # If the recruiter is logged in, get their username
+    if request.user.is_authenticated and not applicant_id:
+        recruiter_username = request.user.username  # Assuming the recruiter uses the Django user model
+
+    return render(request, 'home.html', {
+        'jobs': jobs,
+        'applicant_username': applicant_username,
+        'recruiter_username': recruiter_username  # Pass recruiter username to the template
+    })
+
+
+def job_detail(request, job_id):
+    job = get_object_or_404(Job, id=job_id)
+    applicant_id = request.session.get('applicant_id')
+    applicant_username = None
+    recruiter_username = None
+    has_resume = False
+    is_applicant = False  # Flag to indicate if the user is an applicant
+    # If the applicant is logged in, get their username
+    if applicant_id:
+        try:
+            applicant = Applicant.objects.get(id=applicant_id)
+            has_resume = Resume.objects.filter(applicant=applicant).exists()
+            applicant_username = applicant.username
+            is_applicant = True  # Set the flag to True if an applicant is logged in
+
+        except Applicant.DoesNotExist:
+            applicant_username = None
+            has_resume = False
+
+
+    # If the recruiter is logged in, get their username
+    if request.user.is_authenticated and not applicant_id:
+        recruiter_username = request.user.username
+
+    return render(request, 'ViewDetails.html', {
+        'job': job,
+        'applicant_username': applicant_username,
+        'recruiter_username': recruiter_username,
+        'has_resume': has_resume,
+        'is_applicant': is_applicant,  # Pass the flag to the template
+        'request': request
+    })
 
 
 def index(request):
@@ -134,9 +193,7 @@ def index(request):
     return render(request, 'index.html', {'jobs': jobs})
 
 
-def job_detail(request, job_id):
-    job = get_object_or_404(Job, id=job_id)  # Fetch the job by its ID or return a 404 error
-    return render(request, 'ViewDetails.html', {'job': job})
+
 
 
 

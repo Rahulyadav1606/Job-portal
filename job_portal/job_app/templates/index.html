@@ -310,25 +310,6 @@ footer {
     color: #5c4d4d;
 }
 
-.company-info {
-    text-align: center;
-    margin-top: 20px; /* Space above the company info */
-}
-
-.company-name {
-    font-size: 2.5em; /* Big font size for company name */
-    font-weight: bold; /* Bold text */
-    color: #2c3e50; /* Change to your preferred color */
-    font-family: 'Arial', sans-serif; /* Choose your desired font family */
-}
-
-.company-details,
-.company-address {
-    font-size: 1.2em; /* Normal font size for details */
-    color: #34495e; /* Change to your preferred color */
-    margin-top: 10px; /* Space above details */
-}
-
     </style>
 </head>
 <body>
@@ -340,7 +321,7 @@ footer {
         <li><a id="managejob" href="{% url 'Managejobs' %}">Manage Jobs</a></li>
         <li><a id="product" href="{% url 'resume' %}">Resume/CV</a></li>
         <li class="user-info" id="user-info" onclick="toggleLogout()">
-            {{ request.user.username }} <i class="fas fa-sign-out-alt logout-icon"></i>
+            <p id="rec">Recruiter : </p>{{ request.user.username }} <i class="fas fa-sign-out-alt logout-icon"></i>
         </li>
         <li id="logout" style="display: none; color: black">
             <a id="login" href="{% url 'logout' %}">Logout</a>

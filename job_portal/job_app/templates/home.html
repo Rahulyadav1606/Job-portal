@@ -321,6 +321,7 @@ footer {
     box-shadow: 2px 8px 8px rgba(0, 0, 0, 0.1);
 }
 
+
     </style>
 </head>
 <body>
@@ -329,10 +330,17 @@ footer {
     <ul>
         <li><a id="aboutus" href="#">About Us</a></li>
 
-        {% if user.is_authenticated %}
+        {% if applicant_username %}
             <!-- Display the username and logout link when the user is logged in -->
             <li class="user-info" id="user-info" onclick="toggleLogout()">
-                {{ user.username }} <i class="fas fa-sign-out-alt logout-icon"></i>
+                Applicant: {{ applicant_username }} <i class="fas fa-sign-out-alt logout-icon"></i>
+            </li>
+            <li id="logout" style="display: none; color: black">
+                <a href="{% url 'logout' %}">Logout</a>
+            </li>
+        {% elif recruiter_username %}
+         <li class="user-info" id="user-info" onclick="toggleLogout()">
+                <p id="rec">Recruiter:</p>  {{ recruiter_username }} <i class="fas fa-sign-out-alt logout-icon"></i>
             </li>
             <li id="logout" style="display: none; color: black">
                 <a href="{% url 'logout' %}">Logout</a>
@@ -379,7 +387,7 @@ footer {
         <a id="k" href="#" class="more-jobs">More Jobs</a>
     </div>
 <div class="pop">
-    <a href="{% url 'contact' %}"><i id="pop" class="fa-solid fa-envelope"></i></a>
+    <a href="{% url 'contact' %}"><i id="pop" class="fa-solid fa-phone"></i></a>
 </div>
 
 <div class="contain">
