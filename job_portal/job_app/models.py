@@ -36,6 +36,7 @@ class Job(models.Model):
     availability = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
+    applicants = models.ManyToManyField('Applicant.Applicant', related_name='applied_jobs', blank=True)
 
     def __str__(self):
         return self.title

@@ -1,0 +1,130 @@
+{% extends "header_main.html" %}
+{% block body %}
+<style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f1f1;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 80px auto;
+}
+
+h2 {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #8e7575;
+    color: white;
+}
+
+.delete-job {
+    color: red;
+    padding: 4px 8px;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+.delete-job:hover {
+    text-decoration: underline;
+}
+
+.update-job {
+    color: #007BFF;
+    padding: 4px 8px;
+    font-size: 15px;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+.update-job:hover {
+    text-decoration: underline;
+}
+
+td a {
+    color: #007BFF;
+    font-size: 15px;
+    padding: 5px 8px;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.status.active {
+    background-color: #8e7575;
+    color: white;
+}
+
+.notification {
+    display: none;
+    padding: 15px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    z-index: 1000;
+    transition: opacity 0.5s ease;
+}
+
+    </style>
+
+<div class="container">
+<h1>Applicants for {{ job.title }}</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Applicant Name</th>
+            <th>Email</th>
+            <th>Resume</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for application in applicants %}
+            <tr>
+                <td>{{ application.applicant.username }}</td>
+                <td>{{ application.applicant.email }}</td>
+                <td>
+                    <a href="{{ applicant.resume_set.first.resume_file.url }}">View Resume</a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="3">No applicants yet.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

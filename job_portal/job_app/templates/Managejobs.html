@@ -126,7 +126,10 @@ tr:hover {
                     <td>{{ job.title }}</td>
                     <td>{{ job.location }}</td>
                     <td>{{ job.salary }}</td>
-                    <td>0 <a href="#">view All</a></td>
+                    <td>
+                    {{ job.application_set.count }}
+                    <a href="{% url 'job_applicants' job.id %}">view All</a>
+                </td>
                     <td>
                         <span class="status {% if job.availability %}active{% else %}inactive{% endif %}">
                             {% if job.availability %}

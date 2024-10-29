@@ -1,13 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, logout, login
 from django.shortcuts import render, redirect
-from .models import contact as ContactModel
-from datetime import datetime
-from .models import sign_up
 from django.contrib import messages
 from django.contrib.auth.models import User
-# Create your views here.
-
 from django.shortcuts import render
 
 

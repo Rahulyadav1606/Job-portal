@@ -153,7 +153,7 @@
             padding: 20px 20px;
             box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
             position: relative;
-            top: 340px;
+            top: 450px;
         }
 
         .footer-links {
@@ -232,14 +232,13 @@
         <li><a id="aboutus" href="#">About Us</a></li>
         {% if has_resume %}
             <li><a id="apply_jobs" href="#">Apply Jobs</a></li>
-            <li><a id="manage_jobs" href="{% url 'update_jobs' %}">Manage Jobs</a></li>
+            <li><a href="{% url 'view_applied_jobs' %}">Applied Jobs</a></li>
         {% else %}
             <li><a id="create_resume" href="{% url 'upload_resume' %}">Create Resume</a></li>
         {% endif %}
         <li class="user-info" id="user-info" onclick="toggleLogout()">
-<!--            <img src="{% static 'images/img.jpg' %}" alt="">-->
             {% if applicant %}
-                <p id="rec">Applicant </p>{{ applicant.username }} <i class="fas fa-sign-out-alt logout-icon"></i>
+                Applicant: {{ applicant.name }} <i class="fas fa-sign-out-alt logout-icon"></i>
             {% endif %}
         </li>
         <li id="logout" style="display: none; color: black">
@@ -252,18 +251,19 @@
     </ul>
 </header>
 
+
 <!-- Job Statistics Section -->
 <div class="statistics">
     <div class="stat-box">
-        <h3>5</h3>
-        <p>Applied Jobs</p>
-    </div>
+    <h3>{{ applied_jobs_count }}</h3>
+    <p>Applied Jobs</p>
+</div>
     <div class="stat-box">
-        <h3>2</h3>
+        <h3>0</h3>
         <p>Saved Jobs</p>
     </div>
     <div class="stat-box">
-        <h3>1</h3>
+        <h3>0</h3>
         <p>Interviews Scheduled</p>
     </div>
 </div>

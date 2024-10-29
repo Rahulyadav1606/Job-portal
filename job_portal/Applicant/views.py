@@ -1,9 +1,11 @@
 from django.contrib import messages
-from django.shortcuts import render, redirect
-from .models import Resume, Applicant
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Resume, Applicant,Application
 
 def applicant_signup(request):
     if request.method == 'POST':
+        name = request.POST.get('name')
         username = request.POST.get('username')
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -15,7 +17,7 @@ def applicant_signup(request):
 
         try:
             # Create applicant and hash the password
-            applicant = Applicant(username=username, email=email)
+            applicant = Applicant(name=name,username=username, email=email)
             applicant.set_password(password)  # Hash password
             applicant.save()
 
@@ -26,15 +28,14 @@ def applicant_signup(request):
 
     return render(request, 'Applicant_signup.html')
 
-def manage_jobs(request):
-    # Logic to manage jobs
-    return render(request, 'manage_jobs.html')
 
 def Applicant_dashboard(request):
     applicant_id = request.session.get('applicant_id')
+    applied_jobs_count = 0
     if applicant_id:
         try:
             applicant = Applicant.objects.get(id=applicant_id)
+            applied_jobs_count = Application.objects.filter(applicant=applicant).count()
             has_resume = Resume.objects.filter(applicant=applicant).exists()
         except Applicant.DoesNotExist:
             applicant = None
@@ -46,8 +47,10 @@ def Applicant_dashboard(request):
     return render(request, 'Applicant_dashboard.html', {
         'applicant': applicant,
         'has_resume': has_resume,
+        'applied_jobs_count': applied_jobs_count,
         'request': request
     })
+
 
 
 def applicant_login(request):
@@ -68,9 +71,12 @@ def applicant_login(request):
 
     return render(request, 'Applicant_login.html')
 
+
 def resume(request):
     resumes = Resume.objects.all()
     return render(request, 'resume.html', {'resumes': resumes})
+
+
 
 def upload_resume(request):
     if request.method == 'POST':
@@ -81,7 +87,6 @@ def upload_resume(request):
         applicant_id = request.session.get('applicant_id')  # Get the logged-in applicant's ID
 
         if resume_file and recruiter_name and recruiter_email and recruiter_position and applicant_id:
-            # Create a new Resume instance and associate it with the logged-in applicant
             Resume.objects.create(
                 applicant_id=applicant_id,  # Set the applicant_id
                 resume_file=resume_file,
@@ -95,6 +100,26 @@ def upload_resume(request):
             messages.error(request, "Please provide all required fields and ensure you are logged in.")
 
     return render(request, 'upload_resume.html')
+
+
+# views.py
+from django.shortcuts import render
+
+def view_applied_jobs(request):
+    applicant_id = request.session.get('applicant_id')  # Get the applicant ID from the session
+    if not applicant_id:  # If there's no applicant ID in the session, redirect to login
+        return redirect('applicant_login')
+
+    # Retrieve the current logged-in applicant
+    applicant = get_object_or_404(Applicant, id=applicant_id)
+
+    # Filter the applications for the current applicant
+    applied_jobs = Application.objects.select_related('job').filter(applicant=applicant)
+
+    return render(request, 'view_applied_jobs.html', {'applied_jobs': applied_jobs})
+
+
+
 
 def applicant_logout(request):
     request.session.flush()  # Clear the session data

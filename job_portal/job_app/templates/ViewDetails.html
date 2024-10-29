@@ -171,7 +171,7 @@
     <li><a id="aboutus" href="#about">About Us</a></li>
     <li><a id="product" href="{% url 'resume' %}">Resume/CV</a></li>
     <li class="user-info" id="user-info" onclick="toggleLogout()">
-        <p id="rec">Applicant:</p> {{ applicant_username }} <i class="fas fa-sign-out-alt logout-icon"></i>
+        Applicant: {{ applicant_username }} <i class="fas fa-sign-out-alt logout-icon"></i>
     </li>
     <li id="logout" style="display: none; color: black">
         <a id="login" href="{% url 'logout' %}">Logout</a>
@@ -182,7 +182,7 @@
     <li><a id="forjob" href="{% url 'Addjob' %}">Add Job</a></li>
     <li><a id="managejob" href="{% url 'Managejobs' %}">Manage Jobs</a></li>
     <li class="user-info" id="user-info" onclick="toggleLogout()">
-        <p id="rec">Recruiter: </p>{{ request.user.username }} <i class="fas fa-sign-out-alt logout-icon"></i>
+        Recruiter: {{ request.user.username }} <i class="fas fa-sign-out-alt logout-icon"></i>
     </li>
     <li id="logout" style="display: none; color: black">
         <a id="login" href="{% url 'logout' %}">Logout</a>
@@ -196,18 +196,21 @@
 
 <div class="container">
     <!-- Job Title and Details -->
-    <div class="job-header">
+     <div class="job-header">
         <h1>{{ job.title }}</h1>
         <p>{{ job.location }} | {{ job.job_type }} | NGN{{ job.salary }}</p>
 
-{% if is_applicant  %}
-    <button class="apply-btn"><a href="#">Apply for this Job</a></button>
-        {% elif recruiter_username %}
-        <p>.........</p>
+        {% if job.availability %}
+            {% if is_applicant %}
+                <button class="apply-btn"><a href="{% url 'apply_for_job' job.id %}">Apply for this Job</a></button>
+            {% elif recruiter_username %}
+                <p>.........</p>
+            {% else %}
+                <button class="apply-btn"><a href="{% url 'applicant_login' %}">Login to Apply</a></button>
+            {% endif %}
         {% else %}
-        <button class="apply-btn"><a href="{% url 'applicant_login' %}">Login to Apply</a></button>
-{% endif %}
-
+            <p class="job-not-available">Job Not Available</p>
+        {% endif %}
     </div>
     <div class="job-details">
         <div class="section">

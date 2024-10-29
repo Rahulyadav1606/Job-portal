@@ -121,24 +121,15 @@ tr:hover {
                 </tr>
             </thead>
             <tbody>
-                {% for job in jobs %}
+                {% for application in applied_jobs %}
                 <tr>
-                    <td>{{ job.title }}</td>
-                    <td>{{ job.location }}</td>
-                    <td>{{ job.salary }}</td>
-                    <td>0 <a href="#">view All</a></td>
+                    <td>{{ application.job.title }}</td>
+                    <td>{{ application.job.location }}</td>
+                    <td>{{ application.job.salary }}</td>
+                    <td>{{ application.job.job_type }}</td>
+                    <td>{{ application.job.industry }}</td>
                     <td>
-                        <span class="status {% if job.availability %}active{% else %}inactive{% endif %}">
-                            {% if job.availability %}
-                                Active
-                            {% else %}
-                                Inactive
-                            {% endif %}
-                        </span>
-                    </td>
-                    <td>
-    <a href="{% url 'update_job' job.id %}" class="update-job">Update Job</a>
-    <a href="{% url 'delete_job' job.id %}" class="delete-job" onclick="return confirm('Are you sure you want to delete this job?');">Delete Job</a>
+    <a href="#" class="delete-job" onclick="return confirm('Are you sure you want to delete this job?');">Cancel</a>
 </td>
                 </tr>
                 {% endfor %}

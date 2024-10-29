@@ -147,6 +147,8 @@
             <p>Applicant Sign Up</p>
             <form action="{% url 'applicant_signup' %}" method="post">
                 {% csrf_token %}
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" placeholder="Full name" required>
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" required minlength="4" maxlength="20"
                        pattern="[A-Za-z0-9_]+" placeholder="username"
