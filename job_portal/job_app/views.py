@@ -1,16 +1,14 @@
-from django.contrib.auth import authenticate,logout,login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView
 from .models import contact as ContactModel
 from datetime import datetime
-from .models import sign_up
 from django.contrib import messages
-
+from django.utils import timezone
 
 from django.shortcuts import render
-from .models import Job
+
 from Applicant.models import Application
 
 
@@ -157,19 +155,17 @@ def job_detail(request, job_id):
     applicant_username = None
     recruiter_username = None
     has_resume = False
-    is_applicant = False  # Flag to indicate if the user is an applicant
-    # If the applicant is logged in, get their username
+    is_applicant = False
     if applicant_id:
         try:
             applicant = Applicant.objects.get(id=applicant_id)
             has_resume = Resume.objects.filter(applicant=applicant).exists()
             applicant_username = applicant.username
-            is_applicant = True  # Set the flag to True if an applicant is logged in
+            is_applicant = True
 
         except Applicant.DoesNotExist:
             applicant_username = None
             has_resume = False
-
     # If the recruiter is logged in, get their username
     if request.user.is_authenticated and not applicant_id:
         recruiter_username = request.user.username
@@ -179,7 +175,7 @@ def job_detail(request, job_id):
         'applicant_username': applicant_username,
         'recruiter_username': recruiter_username,
         'has_resume': has_resume,
-        'is_applicant': is_applicant,  # Pass the flag to the template
+        'is_applicant': is_applicant,
         'request': request
     })
 
@@ -225,34 +221,20 @@ class ManageJobsView(LoginRequiredMixin, ListView):
         return Job.objects.filter(user=self.request.user)
 
 
-from django.utils import timezone
-
-
 def apply_for_job(request, job_id):
     # Check if the applicant is logged in by session
     applicant_id = request.session.get('applicant_id')
     if not applicant_id:
-        return redirect('applicant_login')  # Redirect to login if not logged in
-
-    # Retrieve the job
+        return redirect('applicant_login')
     job = get_object_or_404(Job, id=job_id)
-
-    # Get the applicant and create the application entry
     applicant = get_object_or_404(Applicant, id=applicant_id)
-
-    # Check if an application already exists
     existing_application = Application.objects.filter(job=job, applicant=applicant).exists()
     if not existing_application:
-        # Create a new application
         Application.objects.create(job=job, applicant=applicant, applied_at=timezone.now())
-
-    # Redirect to the applicant dashboard after applying
     return redirect('Applicant_dashboard')
 
 
 def job_applicants(request, job_id):
     job = get_object_or_404(Job, id=job_id)
-    # Retrieve all applicants for the specific job
     applicants = Application.objects.filter(job=job).select_related('applicant')
-
     return render(request, 'job_applicants.html', {'job': job, 'applicants': applicants})

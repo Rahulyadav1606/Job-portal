@@ -1,66 +1,76 @@
 {% extends "header_main.html" %}
 {% block body %}
 <style>
-    .container {
-            margin-top: 50px;
-            max-width: 900px;
-        }
-        .header-title {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 40px;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-        .resume-section {
-            /*background-color: #978d8d;*/
-            padding: 30px;
-            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            background-color: #ffffff;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
-        }
-        th, td {
-            padding: 12px 15px;
-            border: 1px solid #e9ecef;
-            text-align: left;
-        }
-        th {
-            background-color: #343a40;
-            color:#343a40 ;
-            font-size: 1.1rem;
-        }
-        td {
-            font-size: 1rem;
-        }
-        .btn-outline-secondary {
-            font-weight: 500;
-        }
-        .btn-custom {
-            background-color: #8e7575;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1rem;
-            font-weight: 500;
-            border-radius: 30px;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s, box-shadow 0.3s;
-        }
-        .btn-custom:hover {
-            background-color: indianred;
-            box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.15);
-        }
-        .text-center {
-            margin-top: 30px;
-        }
-    </style>
-<div class="container">
+    .contain {
+        margin-top: 50px;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .header-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 40px;
+        text-align: center;
+        letter-spacing: 1px;
+        color: #343a40;
+    }
+
+    .resume-section {
+        padding: 30px;
+        box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
+        background-color: #ffffff; /* Added background for better visibility */
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+    th, td {
+        padding: 12px 15px;
+        border: 1px solid #e9ecef;
+        text-align: left;
+    }
+
+    th {
+        background-color: #8e7575;
+        color: #ffffff; /* Changed text color for contrast */
+        font-size: 1.1rem;
+    }
+
+    td {
+        font-size: 1rem;
+        color: #495057; /* Added color for better readability */
+    }
+    tbody .btn {
+        color: black;
+        text-decoration: none;
+    }
+    tbody .btn {
+        font-weight: 500;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    tbody .btn:hover {
+        background-color:  #8e7575;
+        color: white;
+    }
+
+    .text-center {
+        margin-top: 30px;
+        font-size: 1.1rem;
+        color: #343a40; /* Consistent text color */
+    }
+
+    .no-resumes {
+        color: #6c757d; /* Subtle color for empty state */
+    }
+</style>
+<div class="contain">
     <h1 class="header-title">Available Resumes</h1>
     <div class="resume-section">
         <table class="table table-striped">
@@ -78,18 +88,21 @@
                     <td>{{ resume.recruiter_name }}</td>
                     <td>{{ resume.recruiter_email }}</td>
                     <td>{{ resume.recruiter_position }}</td>
-                    <td><a href="{{ resume.resume_file.url }}" download="{{ resume.resume_file.name }}" class="btn btn-outline-secondary">Download</a></td>
+                    <td>
+                        <a href="{{ resume.resume_file.url }}" download="{{ resume.resume_file.name }}" class="btn">Download</a>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="4" class="text-center">No resumes available.</td>
+                    <td colspan="4" class="text-center no-resumes">No resumes available.</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-<!--    <div class="text-center">-->
-<!--        <a href="{% url 'upload_resume' %}" class="btn btn-custom">Upload New Resume</a>-->
-<!--    </div>-->
+    <!-- Uncomment to enable the upload button -->
+    <!-- <div class="text-center"> -->
+    <!--     <a href="{% url 'upload_resume' %}" class="btn btn-custom">Upload New Resume</a> -->
+    <!-- </div> -->
 </div>
 {% endblock %}

@@ -33,37 +33,15 @@ th {
     background-color: #8e7575;
     color: white;
 }
-
-.delete-job {
-    color: red;
-    padding: 4px 8px;
-    font-size: 16px;
-    text-decoration: none;
-    border-radius: 3px;
-}
-
-.delete-job:hover {
-    text-decoration: underline;
-}
-
-.update-job {
-    color: #007BFF;
-    padding: 4px 8px;
-    font-size: 15px;
-    text-decoration: none;
-    border-radius: 3px;
-}
-
-.update-job:hover {
-    text-decoration: underline;
-}
-
 td a {
     color: #007BFF;
     font-size: 15px;
     padding: 5px 8px;
     text-decoration: none;
     border-radius: 3px;
+}
+td a:hover{
+    text-decoration: underline;
 }
 
 tr:nth-child(even) {
@@ -74,28 +52,6 @@ tr:hover {
     background-color: #ddd;
 }
 
-.status {
-    padding: 5px 10px;
-    border-radius: 5px;
-}
-
-.status.active {
-    background-color: #8e7575;
-    color: white;
-}
-
-.notification {
-    display: none;
-    padding: 15px;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 5px;
-    position: fixed;
-    top: 70px;
-    right: 20px;
-    z-index: 1000;
-    transition: opacity 0.5s ease;
-}
 
     </style>
 
@@ -106,6 +62,7 @@ tr:hover {
     <thead>
         <tr>
             <th>Applicant Name</th>
+            <th>User Name</th>
             <th>Email</th>
             <th>Resume</th>
         </tr>
@@ -113,6 +70,7 @@ tr:hover {
     <tbody>
         {% for application in applicants %}
             <tr>
+                <td>{{ application.applicant.name }}</td>
                 <td>{{ application.applicant.username }}</td>
                 <td>{{ application.applicant.email }}</td>
                 <td>

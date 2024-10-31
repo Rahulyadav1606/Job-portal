@@ -43,3 +43,8 @@ class Application(models.Model):
     def __str__(self):
         return f"{self.applicant.username} - {self.job.title}"
 
+
+class SavedJob(models.Model):
+    applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    saved_at = models.DateTimeField(auto_now_add=True)

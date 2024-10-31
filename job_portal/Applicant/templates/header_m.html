@@ -4,108 +4,244 @@
     <meta charset="UTF-8">
     <title>Job Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <style>
+<style>
+        /* General Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background:  #f4f1f1;
+            color: #333;
             padding-top: 60px;
+            scroll-behavior: smooth;
         }
+
+        /* Header Styles */
         header {
             position: fixed;
             top: 0;
-            height: 60px;
             width: 100%;
-            background-color: #8e7575;
+            height: 60px;
+            background: #8e7575;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
             z-index: 1000;
+            transition: background-color 0.3s;
+            border-radius: 8px;
         }
+
+        header:hover {
+            background-color: #6b5a5a;
+        }
+
         header ul {
             list-style: none;
             display: flex;
+            align-items: center;
         }
+
         li {
             margin: 0 15px;
         }
-        a {
+
+        li a {
             text-decoration: none;
             color: white;
             font-weight: bold;
             transition: color 0.3s;
         }
-        .logo {
+
+        ul a:hover {
+            color: #f0a1a1;
+        }
+
+        .logo a {
+            text-decoration: none;
+            color: white;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .user-info {
+            color: white;
+            font-weight: bold;
+            margin-right: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .user-info img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .hamburger-icon {
             color: white;
             font-size: 1.5em;
+            cursor: pointer;
+            margin-left: 15px;
         }
-        a:hover {
+
+        /* Sidebar */
+        .offcanvas {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100vh;
+            background: linear-gradient(135deg, #8e7575, #6b5a5a);
+            color: #ffffff;
+            border-radius: 8px 0 0 8px;
+            box-shadow: -4px 0 15px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            transition: right 0.4s;
+            z-index: 2000;
+        }
+
+        .offcanvas.active {
+            right: 0;
+        }
+
+        .offcanvas h3 {
+            color: #f0f0f0;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .offcanvas h5 {
+            font-size: 0.9em;
+            color: #f0f0f0;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+
+        .offcanvas a {
+            color: #ffffff;
+            display: block;
+            margin: 15px 0;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            padding: 5px 0;
+            border-radius: 5px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .offcanvas a:hover {
             color: indianred;
         }
 
-.user-info {
-    color: white;
-    font-weight: bold;
-    margin-right: 10px;
+        .offcanvas .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 1.8em;
+            cursor: pointer;
+        }
 
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-.logout-icon {
-    margin-left: 5px;
-    transition: transform 0.3s;
-}
-
-.user-info:hover .logout-icon {
-    transform: rotate(180deg);
-}
-        .pop {
-            height: 50px;
-            width: 50px;
-            border: 2px solid #4bbfe6;
-            border-radius: 50%;
-            position: fixed;
+        /* Statistics Section */
+        .statistics {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            bottom: 30px;
-            right: 30px;
-            background-color: white;
-            box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s;
+            justify-content: space-around;
+            margin: 30px 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
-        .pop:hover {
-            background-color: #e7f5ff;
+
+        .stat-box {
+            text-align: center;
         }
-        #pop {
-            color: #34af85;
+
+        .stat-box h3 {
+            color: #8e7575;
+            font-size: 28px;
+        }
+
+        .stat-box p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #8e7575;
+            margin-top: 500px;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 -6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-links a {
+            color: white;
             font-size: 1.5em;
+            margin: 0 10px;
+            transition: color 0.3s;
         }
+
+        .footer-links a:hover {
+            color: #f0a1a1;
+        }
+
     </style>
 </head>
 <body>
 <header>
     <div class="logo">
-        Job Portal
+        <a href="{% url 'home' %}">Job Portal</a>
     </div>
     <ul>
-        <li><a id="apphome" href="{% url 'Applicant_dashboard' %}">Applicant Dashboard</a></li>
+        <li><a id="aboutus" href="#">About Us</a></li>
+        {% if has_resume %}
+            <li><a id="apply_jobs" href="{% url 'Alljobs' %}">Apply Jobs</a></li>
+            <li><a href="{% url 'view_applied_jobs' %}">Applied Jobs</a></li>
+        {% else %}
+            <li><a id="create_resume" href="{% url 'upload_resume' %}">Create Resume</a></li>
+        {% endif %}
+        <li class="user-info" id="user-info">
+            {% if applicant %} Applicant: {{ applicant.name }} {% endif %}
+        </li>
+        <li id="logout" style="display: none; color: black">
+            <a id="login" href="{% url 'logout' %}">Logout</a>
+        </li>
+        <li class="notification-icon">
+            <i class="fas fa-bell" style="color: white"></i>
+            <span class="count " style="color: red">0</span> <!-- Notification count -->
+        </li>
+        <i class="fas fa-bars hamburger-icon" onclick="toggleSidebar()"></i>
     </ul>
 </header>
-<div class="pop">
-    <a href="{% url 'contact' %}"><i id="pop" class="fa-solid fa-phone"></i></a>
+<div id="offcanvas" class="offcanvas">
+    <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+    <h3>{{ applicant.name }}</h3>
+    <h5>User : {{ applicant.username }}</h5>
+    <a href="#">Profile</a>
+    <a href="{% url 'saved_jobs' %}">Saved jobs</a>
+    <a href="{{ applicant.resume_set.first.resume_file.url }}">My Resume</a>
+    <a href="#">Settings</a>
+    <a href="{% url 'logout' %}">Logout<i class="fas fa-sign-out-alt logout-icon"></i></a>
 </div>
-
+<!--<div class="pop">-->
+<!--    <a href="{% url 'contact' %}"><i id="pop" class="fa-solid fa-phone"></i></a>-->
+<!--</div>-->
+<script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById("offcanvas");
+        sidebar.classList.toggle("active");
+    }
+</script>
 {% block body %}{% endblock%}
 </body>
 </html>

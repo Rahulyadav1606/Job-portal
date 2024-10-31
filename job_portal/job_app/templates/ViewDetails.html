@@ -159,40 +159,47 @@
             color: #999;
             text-align: right;
         }
+        .save-icon {
+    font-size: 1.5rem;
+    color: #999;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.save-icon:hover {
+    color: indianred;
+}
+.card {
+    position: relative;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 40vh;
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
     </style>
 </head>
 <body>
-<header>
-    <div class="logo"><a href="{% url 'home' %}">Job Portal</a></div>
-    <ul>
-       {% if applicant_username %}
-    <!-- Applicant logged in -->
-    <li><a id="aboutus" href="#about">About Us</a></li>
-    <li><a id="product" href="{% url 'resume' %}">Resume/CV</a></li>
-    <li class="user-info" id="user-info" onclick="toggleLogout()">
-        Applicant: {{ applicant_username }} <i class="fas fa-sign-out-alt logout-icon"></i>
-    </li>
-    <li id="logout" style="display: none; color: black">
-        <a id="login" href="{% url 'logout' %}">Logout</a>
-    </li>
-{% elif user.is_authenticated %}
-    <!-- Recruiter (assuming recruiter uses Django's User model) -->
-    <li><a id="aboutus" href="#about">About Us</a></li>
-    <li><a id="forjob" href="{% url 'Addjob' %}">Add Job</a></li>
-    <li><a id="managejob" href="{% url 'Managejobs' %}">Manage Jobs</a></li>
-    <li class="user-info" id="user-info" onclick="toggleLogout()">
-        Recruiter: {{ request.user.username }} <i class="fas fa-sign-out-alt logout-icon"></i>
-    </li>
-    <li id="logout" style="display: none; color: black">
-        <a id="login" href="{% url 'logout' %}">Logout</a>
-    </li>
+{% if user.is_authenticated and not applicant_username %}
+    {% include "header_main.html" %}
+{% elif applicant_username %}
+    {% include "header_m.html" %}
 {% else %}
-    <!-- Not logged in -->
-    <li><a id="login" href="{% url 'login' %}">Login</a></li>
+    <!-- Optional: Include a generic header for non-logged-in users -->
+    <header>
+        <div class="logo"><a href="{% url 'home' %}">Job Portal</a></div>
+        <ul>
+            <li><a id="login" href="{% url 'login' %}">Login</a></li>
+        </ul>
+    </header>
 {% endif %}
-    </ul>
-</header>
 
 <div class="container">
     <!-- Job Title and Details -->
@@ -223,28 +230,31 @@
         </div>
     </div>
 
-    <div class="cards-container">
-        <div class="card">
-            <h5>Other Details</h5>
-            <p>{{ job.other_details }}</p>
-            <div class="card-footer">Last updated {{ job.created_at|timesince }}</div>
-        </div>
+ <div class="cards-container">
+    <div class="card">
+        <i class="fas fa-bookmark save-icon"></i>
+        <h5>Other Details</h5>
+        <p>{{ job.other_details }}</p>
+        <div class="card-footer">Last updated {{ job.created_at|timesince }}</div>
+    </div>
 
-        <div class="card">
-            <h5>About the Company</h5>
-            <p>INFOSYS</p>
-            <p>KOLKATA</p>
-            <p>Founded: 2001</p>
-            <div class="card-footer">Last updated {{ job.created_at|timesince }}</div>
-        </div>
+    <div class="card">
+        <i class="fas fa-bookmark save-icon"></i>
+        <h5>About the Company</h5>
+        <p>INFOSYS</p>
+        <p>KOLKATA</p>
+        <p>Founded: 2001</p>
+        <div class="card-footer">Last updated {{ job.created_at|timesince }}</div>
+    </div>
 
-        <div class="card">
-            <h5>Related Jobs</h5>
-            <p>This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-            <div class="card-footer">Last updated {{ job.created_at|timesince }}</div>
-        </div>
+    <div class="card">
+        <i class="fas fa-bookmark save-icon"></i>
+        <h5>Related Jobs</h5>
+        <p>This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+        <div class="card-footer">Last updated {{ job.created_at|timesince }}</div>
     </div>
 </div>
+
 
 <script>
     function toggleLogout() {

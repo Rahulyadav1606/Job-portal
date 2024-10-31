@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+{% extends "header_m.html" %}
+
+{% block body %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,7 +22,7 @@ body {
     scroll-behavior: smooth;
 }
 .container {
-            height: 35vh;
+            height: 30vh;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
@@ -49,16 +51,20 @@ body {
         .container input[type="text"] {
             flex: 1;
         }
-        .container button {
-            padding: 10px 20px;
-            font-size: 16px;
-            color: white;
-            background-color:#8e7575;
-            box-shadow: 0 6px 5px rgba(0, 0, 0, 0.2);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+       .container button {
+    position: relative;
+    top: 0;
+    right: 0;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    background-color: #8e7575;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 6px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
         .container button:hover {
             background-color: indianred;
         }
@@ -72,8 +78,7 @@ body {
             padding: 10px 20px;
             font-size: 16px;
             color: #8e7575;
-            border: 2px solid#8e7575;
-
+            border: 1px solid#8e7575;
             border-radius: 5px;
             text-decoration: none;
             cursor: pointer;
@@ -82,15 +87,18 @@ body {
             background-color: indianred;
             color: white;
         }
+        i{
+            font-size: 13px;
+        }
+
 header {
     position: fixed;
     top: 0;
     height: 60px;
     width: 100%;
     background-color: #8e7575;
-    display: flex;
     border-radius: 9px;
-
+    display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
@@ -136,26 +144,6 @@ li a {
 
        ul a:hover {
     color: indianred;
-}
-
-.user-info {
-    color: white;
-    font-weight: bold;
-    margin-right: 10px;
-
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-.logout-icon {
-    margin-left: 5px;
-    transition: transform 0.3s;
-}
-
-.user-info:hover .logout-icon {
-    transform: rotate(180deg);
 }
 
 .pop {
@@ -229,6 +217,11 @@ li a {
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
+.job-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
 .job-card h3 {
     margin-top: 0;
     color: #333;
@@ -239,7 +232,7 @@ li a {
     color: #666;
 }
 
-.job-card button {
+.job-card #sec {
     background-color: #8e7575;
     color: white;
     border: none;
@@ -248,7 +241,7 @@ li a {
     cursor: pointer;
 }
 
-.job-card button:hover {
+.job-card #sec:hover {
     background-color: indianred;
 }
 
@@ -260,10 +253,7 @@ li a {
     color: #999;
 }
 
-.job-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
+
 .social-icons a {
     margin: 0 10px;
     color: #5c4d4d;
@@ -273,141 +263,74 @@ li a {
 .social-icons a:hover {
     transform: scale(1.2);
 }
-
-.offcanvas {
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 300px;
-            height: 100vh;
-            background: linear-gradient(135deg, #8e7575, #6b5a5a);
-            color: #ffffff;
-            border-radius: 8px 0 0 8px;
-            box-shadow: -4px 0 15px rgba(0, 0, 0, 0.3);
-            padding: 20px;
-            transition: right 0.4s;
-            z-index: 2000;
-        }
-  .hamburger-icon {
-            color: white;
-            font-size: 1.5em;
-            cursor: pointer;
-            margin-left: 15px;
-        }
-
-
-        .offcanvas.active {
-            right: 0;
-        }
-
-        .offcanvas h3 {
-            color: #f0f0f0;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .offcanvas h5 {
-            font-size: 0.9em;
-            color: #f0f0f0;
-            font-weight: 400;
-            margin-bottom: 15px;
-        }
-
-        .offcanvas a {
-            color: #ffffff;
-            display: block;
-            margin: 15px 0;
-            text-decoration: none;
-            font-size: 1.1em;
-            font-weight: 600;
-            padding: 5px 0;
-            border-radius: 5px;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        .offcanvas a:hover {
-
-            color: indianred;
-        }
-
-        .offcanvas .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 1.8em;
-            cursor: pointer;
-        }
 footer {
     background-color: #8e7575; /* Match the header color */
     color: white;
     text-align: center;
+    border-radius: 15px;
     padding: 20px 20px;
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.user-info:hover .logout-icon {
+    transform: rotate(180deg);
 }
 
 .footer-links {
     display: flex;
     justify-content: center;
-    gap: 20px; /* Space between icons */
+    gap: 20px;
     margin-bottom: 20px;
 }
 
 .footer-links a {
     color: white;
-    font-size: 1.5em; /* Increased icon size */
+    font-size: 1.5em;
     transition: color 0.3s;
 }
 
 .footer-links a:hover {
-    color: indianred; /* Change color on hover */
+    color: indianred;
 }
 
 .contact-details {
     margin: 15px 0;
-    font-size: 0.9em; /* Smaller font for contact details */
+    font-size: 0.9em;
 }
 
 .footer-copy {
-    font-size: 0.8em; /* Smaller font for copyright */
+    font-size: 0.8em;
     margin-top: 10px;
 }
 .content-box img{
     height: 30vh;
 }
-#add{
-    color: #5c4d4d;
+
+
+#k{
+    box-shadow: 2px 8px 8px rgba(0, 0, 0, 0.1);
 }
+form button {
+    cursor: pointer;
+    color: #8e7575;
+    border: 1px solid white;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em; /* Adjust the size as needed */
+    transition: color 0.3s; /* Add transition for hover effect */
+}
+
+.bookmark-icon:hover {
+    color: indianred; /* Change color on hover */
+}
+
 
     </style>
 </head>
 <body>
-<header>
-    <div class="logo"><a href="{% url 'home' %}">Job Portal</a></div>
-    <ul>
-        <li><a id="aboutus" href="#">About Us</a></li>
-        <li><a id="forjob" href="{% url 'Addjob' %}">Add Job</a></li>
-        <li><a id="managejob" href="{% url 'Managejobs' %}">Manage Jobs</a></li>
-        <li><a id="product" href="{% url 'resume' %}">Resume/CV</a></li>
-        <li class="user-info" id="user-info">
-            <p id="rec">Recruiter : </p>{{ request.user.username }}
-        </li>
-        <li id="logout" style="display: none; color: black">
-            <a id="login" href="{% url 'logout' %}">Logout</a>
-        </li>
-        <i class="fas fa-bars hamburger-icon" onclick="toggleSidebar()"></i>
-    </ul>
-
-</header>
-<div id="offcanvas" class="offcanvas">
-    <span class="close-btn" onclick="toggleSidebar()">&times;</span>
-    <h3>{{ request.user.username }}</h3>
-    <h5>User : {{ request.user.username }}</h5>
-    <a href="#">Profile</a>
-    <a href="#">Settings</a>
-    <a href="{% url 'logout' %}">Logout<i class="fas fa-sign-out-alt logout-icon"></i></a>
-</div>
  <div class="container">
-        <form method="GET" action="{% url 'job_list' %}">
+        <form method="GET" action="{% url 'job_list1' %}">
     <input type="text" placeholder="Job Keyword" name="job-keyword">
     <select name="location">
         <option value="">Select Location</option>
@@ -440,13 +363,8 @@ footer {
         <a id="k" href="#" class="more-jobs">More Jobs</a>
     </div>
 <div class="pop">
-    <a href="{% url 'contact' %}"><i id="pop" class="fa-solid fa-envelope"></i></a>
+    <a href="{% url 'contact' %}"><i id="pop" class="fa-solid fa-phone"></i></a>
 </div>
-<!--<div class="company-info">-->
-<!--    <h1 class="company-name">Infosys</h1>-->
-<!--    <p class="company-details">Details about the company go here. This can include information about services, mission, and values.</p>-->
-<!--    <p class="company-address">Address: 1234 Company St, City, Country</p>-->
-<!--</div>-->
 
 <div class="contain">
     {% for job in jobs %}
@@ -456,29 +374,22 @@ footer {
         <p><strong>Job Type:</strong> {{ job.job_type }}</p>
         <p><strong>Location:</strong> {{ job.location }}</p>
         <p><strong>Salary:</strong> {{ job.salary }}</p>
-        <button><a href="{% url 'job_detail' job.id %}" class="btn btn-primary">View Details</a></button>
+
+        <form method="POST" action="{% url 'save_job' job.id %}">
+            {% csrf_token %}
+            <button type="submit" class="bookmark-icon" title="Bookmark Job">
+                <i class="fa-solid fa-bookmark" style="font-size: large"></i>
+            </button>
+        </form>
+
+        <button id="sec"><a href="{% url 'job_detail' job.id %}" class="btn btn-primary">View Details</a></button>
         <span class="time">{{ job.created_at|timesince }} ago</span>
     </div>
-     {% empty %}
-    <p>No jobs found. Add new Jobs <a id="add" href="{% url 'Addjob' %}">Add</a></p>
+    {% empty %}
+    <p>No jobs found.</p>
     {% endfor %}
 </div>
 
-
-<!-- <section>-->
-<!--    <h2 class="section-title">About Us</h2>-->
-<!--    <p>We are a leading job portal connecting job seekers with top employers. Our mission is to simplify the job search process and make it accessible for everyone.</p>-->
-<!--</section>-->
-
-<!--<section>-->
-<!--    <h2 class="section-title">Contact Us</h2>-->
-<!--    <p>If you have any questions or need support, feel free to reach out to us!</p>-->
-<!--    <div class="social-icons">-->
-<!--        <a href="#" class="fab fa-facebook-f"></a>-->
-<!--        <a href="#" class="fab fa-twitter"></a>-->
-<!--        <a href="#" class="fab fa-linkedin"></a>-->
-<!--    </div>-->
-<!--</section>-->
 
 <footer>
     <div class="footer-links">
@@ -493,17 +404,14 @@ footer {
     </div>
     <p class="footer-copy">© 2024 Job Portal. All rights reserved.</p>
 </footer>
-
-
 <script>
     function toggleLogout() {
         const logout = document.getElementById('logout');
         logout.style.display = logout.style.display === 'none' ? 'block' : 'none';
     }
- function toggleSidebar() {
-     const sidebar = document.getElementById("offcanvas");
-     sidebar.classList.toggle("active");
- }
+
+
 </script>
 </body>
 </html>
+{% endblock %}
