@@ -202,12 +202,14 @@
 {% endif %}
 
 <div class="container">
+    {% if is_applicant %}
     <form method="POST" action="{% url 'save_job' job.id %}">
             {% csrf_token %}
             <button type="submit" class="bookmark-icon" title="Bookmark Job">
                 <i class="fa-solid fa-bookmark" style="font-size: large"></i>
             </button>
         </form>
+    {% endif %}
     <!-- Job Title and Details -->
      <div class="job-header">
         <h1>{{ job.title }}</h1>
