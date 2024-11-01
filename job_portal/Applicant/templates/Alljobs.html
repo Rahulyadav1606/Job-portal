@@ -326,6 +326,13 @@ form button {
 }
 
 
+@media (max-width: 500px) {
+    .container{
+        margin-top: 140px;
+    }
+}
+
+
     </style>
 </head>
 <body>
@@ -374,13 +381,6 @@ form button {
         <p><strong>Job Type:</strong> {{ job.job_type }}</p>
         <p><strong>Location:</strong> {{ job.location }}</p>
         <p><strong>Salary:</strong> {{ job.salary }}</p>
-
-        <form method="POST" action="{% url 'save_job' job.id %}">
-            {% csrf_token %}
-            <button type="submit" class="bookmark-icon" title="Bookmark Job">
-                <i class="fa-solid fa-bookmark" style="font-size: large"></i>
-            </button>
-        </form>
 
         <button id="sec"><a href="{% url 'job_detail' job.id %}" class="btn btn-primary">View Details</a></button>
         <span class="time">{{ job.created_at|timesince }} ago</span>

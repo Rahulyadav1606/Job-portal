@@ -19,6 +19,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            padding: 10px;
         }
 
         .container {
@@ -26,6 +27,7 @@
             justify-content: space-between;
             width: 80%;
             max-width: 1200px;
+            flex-wrap: wrap;
         }
 
         .box {
@@ -35,6 +37,7 @@
             border-radius: 10px;
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
             text-align: center;
+            margin-bottom: 20px;
         }
 
         .companies {
@@ -73,11 +76,13 @@
             margin-bottom: 15px;
             text-decoration: none;
         }
-          a{
-              text-decoration: none;
-              color: white;
-              font-weight: bold;
-          }
+
+        .btn-login a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
         .btn-login:hover {
             background-color: indianred;
         }
@@ -91,6 +96,34 @@
             text-decoration: underline;
         }
 
+        /* Responsive styling */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .box {
+                width: 100%;
+                max-width: 400px;
+                margin: 10px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .btn-login {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -99,14 +132,14 @@
             <div class="label">BUSINESS</div>
             <h2>For Recruiter</h2>
             <p>Streamline your hiring process and find the best talent quickly with our innovative recruitment solutions</p>
-            <button class="btn-login"><a href="{% url 'login' %}">Login.</a></button>
-            <p class="account">Don't have an account? <a href="{% url 'signup' %}">Signup</a>
+            <button class="btn-login"><a href="{% url 'login' %}">Login</a></button>
+            <p class="account">Don't have an account? <a href="{% url 'signup' %}">Signup</a></p>
         </div>
         <div class="box developers">
             <h2>For Applicant</h2>
             <p>Unlock your potential, build your career, and connect with top companies worldwide</p>
-            <button class="btn-login"><a href="{% url 'applicant_login' %}">Login.</a></button>
-            <p class="account">Don't have an account? <a href="{% url 'applicant_signup' %}">Sign up.</a></p>
+            <button class="btn-login"><a href="{% url 'applicant_login' %}">Login</a></button>
+            <p class="account">Don't have an account? <a href="{% url 'applicant_signup' %}">Sign up</a></p>
         </div>
     </div>
 </body>

@@ -185,6 +185,39 @@
         .footer-links a:hover {
             color: #f0a1a1;
         }
+        @media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        height: auto;
+    }
+
+    header ul {
+        flex-direction: row;
+    }
+    header ul li{
+        margin: 0 10px;
+    }
+
+    .container {
+        margin-top: 40px;
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .pop {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .job-card {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .footer-links a {
+        font-size: 1.2em;
+    }
+}
     </style>
 </head>
 <body>
@@ -194,9 +227,10 @@
         <li><a id="aboutus" href="#">About Us</a></li>
         <li><a id="forjob" href="{% url 'Addjob' %}">Add Job</a></li>
         <li><a id="managejob" href="{% url 'Managejobs' %}">Manage Jobs</a></li>
-        <li><a id="product" href="{% url 'resume' %}">Resume/CV</a></li>
+
         <li class="user-info" id="user-info">
-            Recruiter: {{ request.user.username }}
+            <a href="{% url 'index' %}">Recruiter: {{ request.user.username }}</a>
+
         </li>
         <li id="logout" style="display: none; color: black">
             <a id="login" href="{% url 'logout' %}">Logout</a>
@@ -210,6 +244,7 @@
     <h5>User: {{ request.user.username }}</h5>
     <a href="#">Profile</a>
     <a href="#">Settings</a>
+    <a id="product" href="{% url 'resume' %}">Resume/CV</a>
     <a href="{% url 'logout' %}">Logout<i class="fas fa-sign-out-alt logout-icon"></i></a>
 </div>
 

@@ -119,7 +119,7 @@ tr:hover {
                     <td>{{ application.job.job_type }}</td>
                     <td>{{ application.job.industry }}</td>
                     <td>
-    <a href="#" class="delete-job" onclick="return confirm('Are you sure you want to delete this job?');">Cancel</a>
+    <a href="{% url 'cancel_application' application.id %}" class="delete-job" onclick="return confirm('Are you sure you want to delete this job?');">Cancel</a>
 </td>
                 </tr>
                 {% endfor %}

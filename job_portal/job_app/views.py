@@ -112,7 +112,7 @@ def update_job(request, job_id):
 def delete_job(request, job_id):
     job = get_object_or_404(Job, id=job_id, user=request.user)  # Ensure user can only delete their own jobs
     job.delete()
-    messages.success(request, "Job deleted successfully.")
+    messages.add_message(request, messages.INFO, "Job deleted successfully.", extra_tags='manage_jobs')
     return redirect('Managejobs')
 
 

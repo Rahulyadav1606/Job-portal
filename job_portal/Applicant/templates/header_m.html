@@ -149,20 +149,7 @@
             cursor: pointer;
         }
 
-        /* Statistics Section */
-        .statistics {
-            display: flex;
-            justify-content: space-around;
-            margin: 30px 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-        }
 
-        .stat-box {
-            text-align: center;
-        }
 
         .stat-box h3 {
             color: #8e7575;
@@ -194,6 +181,78 @@
         .footer-links a:hover {
             color: #f0a1a1;
         }
+         @media (max-width: 768px) {
+        header {
+            flex-direction: column;
+            height: auto;
+            padding: 10px 20px;
+        }
+
+        .logo a {
+            font-size: 1.5em;
+        }
+
+        header ul {
+            flex-direction: column;
+            width: 100%;
+            padding-top: 10px;
+        }
+
+        li {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .hamburger-icon {
+            display: block;
+        }
+
+        .notification-icon {
+            margin-top: 10px;
+        }
+
+        .user-info {
+            justify-content: center;
+            margin-top: 10px;
+        }
+    }
+       @media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        height: 120px;
+    }
+
+           header ul li{
+               margin: 0 9px;
+           }
+
+    header ul {
+        flex-direction: row;
+    }
+
+    .footer-links a {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .container h1 {
+        font-size: 1.5em;
+    }
+
+    .container p,
+    .container button,
+    .footer-links a,
+    .contact-details p {
+        font-size: 0.9em;
+    }
+
+    .logo a {
+        font-size: 1.5em;
+    }
+}
+
 
     </style>
 </head>
@@ -211,7 +270,8 @@
             <li><a id="create_resume" href="{% url 'upload_resume' %}">Create Resume</a></li>
         {% endif %}
         <li class="user-info" id="user-info">
-            {% if applicant %} Applicant: {{ applicant.name }} {% endif %}
+
+            {% if applicant %} <a href="{% url 'Applicant_dashboard' %}">Applicant: {{ applicant.name }}</a> {% endif %}
         </li>
         <li id="logout" style="display: none; color: black">
             <a id="login" href="{% url 'logout' %}">Logout</a>
@@ -225,9 +285,16 @@
 </header>
 <div id="offcanvas" class="offcanvas">
     <span class="close-btn" onclick="toggleSidebar()">&times;</span>
-    <h3>{{ applicant.name }}</h3>
-    <h5>User : {{ applicant.username }}</h5>
-    <a href="#">Profile</a>
+    <div class="user-info">
+        {% if applicant %} Applicant: {{ applicant.name }} {% endif %}
+    </div>
+    <a href="#">About Us</a>
+    {% if has_resume %}
+        <a href="{% url 'Alljobs' %}">Apply Jobs</a>
+        <a href="{% url 'view_applied_jobs' %}">Applied Jobs</a>
+    {% else %}
+        <a href="{% url 'upload_resume' %}">Create Resume</a>
+    {% endif %}
     <a href="{% url 'saved_jobs' %}">Saved jobs</a>
     <a href="{{ applicant.resume_set.first.resume_file.url }}">My Resume</a>
     <a href="#">Settings</a>

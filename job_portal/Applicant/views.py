@@ -116,6 +116,18 @@ def view_applied_jobs(request):
 
     return render(request, 'view_applied_jobs.html', {'applied_jobs': applied_jobs})
 
+def cancel_application(request, application_id):
+    applicant_id = request.session.get('applicant_id')
+    if not applicant_id:
+        return redirect('applicant_login')
+
+    # Get the application to cancel
+    application = get_object_or_404(Application, id=application_id, applicant_id=applicant_id)
+    application.delete()  # Remove the application
+
+    messages.success(request, "Job application has been canceled..")
+    return redirect('view_applied_jobs')
+
 
 def applicant_logout(request):
     request.session.flush()  # Clear the session data
@@ -169,7 +181,7 @@ def save_job(request, job_id):
         job = get_object_or_404(Job, id=job_id)
         SavedJob.objects.get_or_create(applicant_id=applicant_id, job=job)  # Avoid duplicates
         messages.success(request, f"{job.title} has been saved to your bookmarks.")
-        return redirect('Alljobs')
+        return redirect('job_detail', job_id=job.id)
 
 def remove_saved_job(request, saved_job_id):
     applicant_id = request.session.get('applicant_id')

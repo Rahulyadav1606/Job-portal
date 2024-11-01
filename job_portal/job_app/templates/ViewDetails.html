@@ -59,21 +59,8 @@
         .logo a:hover {
             color: indianred;
         }
-        .user-info {
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
-        .logout-icon {
-            margin-left: 5px;
-            transition: transform 0.3s;
-        }
-        .user-info:hover .logout-icon {
-            transform: rotate(180deg);
-        }
+
+
         @media (max-width: 600px) {
             header ul {
                 flex-direction: column;
@@ -84,11 +71,24 @@
             }
         }
 
-        /* Additional CSS for the Job Details Page */
-        .container {
-            width: 80%;
-            margin: 100px auto;
-        }
+     .bookmark-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        color: #8e7575;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+    .bookmark-icon:hover {
+        color: indianred;
+    }
+    .container {
+        position: relative;
+        width: 80%;
+        margin: 100px auto;
+    }
         .job-header {
             text-align: center;
             margin-bottom: 30px;
@@ -202,6 +202,12 @@
 {% endif %}
 
 <div class="container">
+    <form method="POST" action="{% url 'save_job' job.id %}">
+            {% csrf_token %}
+            <button type="submit" class="bookmark-icon" title="Bookmark Job">
+                <i class="fa-solid fa-bookmark" style="font-size: large"></i>
+            </button>
+        </form>
     <!-- Job Title and Details -->
      <div class="job-header">
         <h1>{{ job.title }}</h1>
@@ -232,14 +238,13 @@
 
  <div class="cards-container">
     <div class="card">
-        <i class="fas fa-bookmark save-icon"></i>
+
         <h5>Other Details</h5>
         <p>{{ job.other_details }}</p>
         <div class="card-footer">Last updated {{ job.created_at|timesince }}</div>
     </div>
 
     <div class="card">
-        <i class="fas fa-bookmark save-icon"></i>
         <h5>About the Company</h5>
         <p>INFOSYS</p>
         <p>KOLKATA</p>
@@ -248,7 +253,7 @@
     </div>
 
     <div class="card">
-        <i class="fas fa-bookmark save-icon"></i>
+
         <h5>Related Jobs</h5>
         <p>This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
         <div class="card-footer">Last updated {{ job.created_at|timesince }}</div>

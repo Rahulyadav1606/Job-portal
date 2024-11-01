@@ -18,7 +18,7 @@ def Signup(request):
         confirm_password = request.POST.get('confirm_password')
         if password != confirm_password:
             messages.error(request, "Passwords do not match.")
-            return render(request, 'Applicant_signup.html')
+            return render(request, 'signup.html')
         try:
             new_user = User.objects.create_user(username=username, email=email, password=password)
             new_user.save()
@@ -26,7 +26,7 @@ def Signup(request):
         except Exception as e:
             messages.error(request, f"Error creating account: {e}")
 
-    return render(request, 'Applicant_signup.html')
+    return render(request, 'signup.html')
 
 
 def Login(request):

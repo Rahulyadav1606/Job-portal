@@ -20,7 +20,7 @@ body {
     scroll-behavior: smooth;
 }
 .container {
-            height: 45vh;
+             height: 45vh;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
@@ -140,23 +140,21 @@ li a {
     color: indianred;
 }
 
+
 .pop {
     height: 50px;
     width: 50px;
     border: 2px solid #4bbfe6;
     border-radius: 50%;
     position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     bottom: 30px;
     right: 30px;
     background-color: white;
-    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 300;
 }
-
 .pop:hover {
     background-color: #e7f5ff;
 }
@@ -321,7 +319,58 @@ footer {
     box-shadow: 2px 8px 8px rgba(0, 0, 0, 0.1);
 }
 
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        height: auto;
+    }
 
+    header ul {
+        flex-direction: column;
+    }
+
+    .container {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .pop {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .job-card {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .footer-links a {
+        font-size: 1.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .job-card {
+        padding: 15px;
+    }
+
+    .container h1 {
+        font-size: 1.5em;
+    }
+
+    .container p,
+    .container button,
+    .footer-links a,
+    .footer-copy,
+    .contact-details p {
+        font-size: 0.9em;
+    }
+
+    .logo a {
+        font-size: 1.5em;
+    }
+}
+  
     </style>
 </head>
 <body>
