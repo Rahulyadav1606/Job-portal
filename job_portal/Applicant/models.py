@@ -36,15 +36,27 @@ class Resume(models.Model):
 
 
 class Application(models.Model):
+    STATUS_CHOICES = [
+        ('review', 'Review'),
+        ('Pending','Pending'),
+        ('interview', 'Interview'),
+        ('accepted', 'Accepted'),
+        ('rejected', 'Rejected'),
+    ]
+
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     applied_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='review')
+    interview_time = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return f"{self.applicant.username} - {self.job.title}"
+        return f"{self.applicant.username} - {self.job.title} - {self.get_status_display()}"
 
 
 class SavedJob(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     saved_at = models.DateTimeField(auto_now_add=True)
+
+

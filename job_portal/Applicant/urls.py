@@ -17,6 +17,4 @@ urlpatterns = [
     path('save-job/<int:job_id>/', save_job, name='save_job'),
     path('remove-saved-job/<int:saved_job_id>/', remove_saved_job, name='remove_saved_job'),
     path('cancel-application/<int:application_id>/', cancel_application, name='cancel_application'),
-
-    # path('accounts/login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),  # Updated line
 ]

@@ -4,152 +4,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Jobs</title>
+    <title>Applied Jobs</title>
     <style>
         body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f1f1;
-    margin: 0;
-    padding: 0;
-}
+            font-family: Arial, sans-serif;
+            background-color: #f4f1f1;
+            margin: 0;
+            padding: 0;
+        }
 
-.container {
-    width: 80%;
-    margin: 80px auto;
-}
+        .container {
+            width: 50%;
+            margin: 50px auto;
+        }
 
-h2 {
-    text-align: center;
-}
+        .cancel-button {
+            background-color: white; /* White background */
+            color: black; /* Black text */
+            border: none; /* No border */
+            padding: 8px 15px; /* Padding for size */
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+            box-shadow: 0 2px 8px lightcoral;
+            transition: background-color 0.3s, transform 0.2s; /* Transition effects */
+            font-size: 10px; /* Font size */
+            font-weight: bold;
+        }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
+        .cancel-button:hover {
+            transform: scale(1.05);
+        }
 
-th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: left;
-}
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4a2e2e;
+            margin-top: 90px;
+            font-weight: bold;
+            font-size: 30px;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
 
-th {
-    background-color: #8e7575;
-    color: white;
-}
+        .job-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
 
-.delete-job {
-    color: red;
-    padding: 4px 8px;
-    font-size: 16px;
-    text-decoration: none;
-    border-radius: 3px;
-}
+        .job-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+        }
 
-.delete-job:hover {
-    text-decoration: underline;
-}
+        .job-details {
+            color: #666;
+            margin: 5px 0 10px;
+            font-size: 14px;
+        }
 
-.update-job {
-    color: #007BFF;
-    padding: 4px 8px;
-    font-size: 15px;
-    text-decoration: none;
-    border-radius: 3px;
-}
+        /* Status background colors */
+        .status {
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #fff;
+        }
 
-.update-job:hover {
-    text-decoration: underline;
-}
+        .status.pending {
+            background-color: #ffc107; /* Yellow for pending */
+        }
 
-td a {
-    color: #007BFF;
-    font-size: 15px;
-    padding: 5px 8px;
-    text-decoration: none;
-    border-radius: 3px;
-}
+        .status.rejected {
+            background-color: #dc3545; /* Red for rejected */
+        }
 
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
+        .status.interview {
+            background-color: #28a745; /* Green for interview */
+        }
 
-tr:hover {
-    background-color: #ddd;
-}
+        .status.review {
+            background-color: #6783a3; /* Blue for review */
+        }
 
-.notification {
-    display: none;
-    padding: 15px;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 5px;
-    position: fixed;
-    top: 70px;
-    right: 20px;
-    z-index: 1000;
-    transition: opacity 0.5s ease;
-}
+        .view-details {
+            color: #718fb6;
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: bold;
+            align-self: flex-end;
+            position: relative;
+            top: 20px;
+        }
 
+        .view-details:hover {
+            text-decoration: underline;
+        }
+
+        .time {
+            background-color: #e7f3fe; /* Light blue background */
+            border-left: 5px solid #2196F3; /* Blue left border */
+            padding: 10px; /* Padding for spacing */
+            border-radius: 4px; /* Slightly rounded corners */
+            margin-top: 10px; /* Space above the time block */
+            font-size: 14px; /* Font size */
+            color: #333; /* Dark text color */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
     </style>
 </head>
 <body>
+    <h2>Applied Jobs</h2>
     <div class="container">
-        <div class="notification" id="notification"></div>
-
-        <h2>Manage Jobs Application</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Job Title</th>
-                    <th>Location</th>
-                    <th>Salary (NGN)</th>
-                    <th>Job Type</th>
-                    <th>Industry</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for application in applied_jobs %}
-                <tr>
-                    <td>{{ application.job.title }}</td>
-                    <td>{{ application.job.location }}</td>
-                    <td>{{ application.job.salary }}</td>
-                    <td>{{ application.job.job_type }}</td>
-                    <td>{{ application.job.industry }}</td>
-                    <td>
-    <a href="{% url 'cancel_application' application.id %}" class="delete-job" onclick="return confirm('Are you sure you want to delete this job?');">Cancel</a>
-</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        {% for application in applied_jobs %}
+        <div class="job-card">
+            <p class="job-title">{{ application.job.title }}
+            </p>
+            <p class="job-details">
+                Company: {{ application.job.company_name }} |
+                Status:
+                <span class="status
+                    {% if application.get_status_display == "Pending" %}pending
+                    {% elif application.get_status_display == "Rejected" %}rejected
+                    {% elif application.get_status_display == "Interview" %}interview
+                    {% elif application.get_status_display == "Review" %}review
+                    {% endif %}">
+                    {{ application.get_status_display }}
+                </span>
+            </p>
+            {% if application.status == 'interview' %}
+            <div class="time">
+                <p>Your Interview Scheduled At: <strong>{{ application.interview_time }}</strong></p>
+            </div>
+            {% endif %}
+            <a href="{% url 'job_detail' application.job.id %}" class="view-details">View Details</a>
+            <form action="{% url 'cancel_application' application.id %}" method="POST" style="display:inline;">
+                {% csrf_token %}
+                <button type="button" class="cancel-button" onclick="confirmCancel(event, this.form)">Cancel Application</button>
+            </form>
+        </div>
+        {% endfor %}
     </div>
 
+
     <script>
-        function showNotification(message) {
-            const notification = document.getElementById('notification');
-            notification.innerText = message;
-            notification.style.display = 'block';
-            notification.style.opacity = 1;
-
-            // Fade out after 3 seconds
-            setTimeout(() => {
-                notification.style.opacity = 0;
-                setTimeout(() => {
-                    notification.style.display = 'none';
-                }, 500);
-            }, 3000);
+        function confirmCancel(event, form) {
+            event.preventDefault(); // Prevent the form from submitting immediately
+            const confirmation = confirm("Are you sure you want to cancel this application?");
+            if (confirmation) {
+                form.submit(); // Submit the form if confirmed
+            }
         }
-
-        {% if messages %}
-            {% for message in messages %}
-                showNotification("{{ message }}");
-            {% endfor %}
-        {% endif %}
     </script>
 </body>
 </html>
 {% endblock %}
-

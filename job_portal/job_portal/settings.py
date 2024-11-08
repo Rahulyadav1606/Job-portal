@@ -79,7 +79,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'job_portal.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -147,3 +146,4 @@ DEFAULT_FROM_EMAIL = 'webmaster@yourdomain.com'
 LOGIN_URL = 'login'  # This should match the name defined in urls.py
 LOGIN_REDIRECT_URL = 'manage_jobs'  # Redirect after login
 LOGOUT_REDIRECT_URL = 'login'  # Redirect after logout
+

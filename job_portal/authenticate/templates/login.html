@@ -44,7 +44,7 @@
     .con {
         background-color: #d8cdcd;
         max-width: 350px;
-        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+        box-shadow: 2px 8px 8px #554f4f;
         animation-delay: 0.5s;
     }
     .con p {
@@ -160,7 +160,7 @@
 
         <div class="con">
             <p>Recruiter Login</p>
-            <form action="login" method="post">
+            <form action="{% url 'login' %}" method="post">
                 {% csrf_token %}
                 <label for="username">Username:</label>
                 <input type="text" id="username" name="username" placeholder="Username" required>

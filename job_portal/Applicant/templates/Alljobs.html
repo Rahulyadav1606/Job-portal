@@ -44,7 +44,7 @@ body {
             padding: 10px;
             font-size: 16px;
             border: 1px solid #ccc;
-            box-shadow: 0 6px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 2px 8px 8px #554f4f;
             border-radius: 5px;
             width: 180px;
         }
@@ -62,7 +62,7 @@ body {
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
-    box-shadow: 0 6px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 8px 8px #554f4f;
     transition: background-color 0.3s;
 }
         .container button:hover {
@@ -102,7 +102,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
-    box-shadow: 0 6px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 8px 8px #554f4f;
     z-index: 1000;
     transition: background-color 0.3s;
 }
@@ -201,6 +201,7 @@ li a {
 .contain {
     display: flex;
     flex-wrap: wrap;
+
     justify-content: center;
     gap: 20px;
     padding: 20px;
@@ -212,7 +213,7 @@ li a {
     border-radius: 8px;
     padding: 20px;
     width: 400px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 8px 8px #554f4f;
     position: relative;
     transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -339,15 +340,11 @@ form button {
  <div class="container">
         <form method="GET" action="{% url 'job_list1' %}">
     <input type="text" placeholder="Job Keyword" name="job-keyword">
-    <select name="location">
+     <select name="location">
         <option value="">Select Location</option>
-        <option value="Bangalore">Bangalore</option>
-        <option value="Chennai">Chennai</option>
-        <option value="Delhi">Delhi</option>
-        <option value="Hyderabad">Hyderabad</option>
-        <option value="Jaipur">Jaipur</option>
-        <option value="Kolkata">Kolkata</option>
-        <option value="Patna">Patna</option>
+        {% for job in jobs %}
+          <option value="{{ job.location }}">{{ job.location }}</option>
+        {% endfor %}
     </select>
     <select name="job-type">
         <option value="">Choose Job Type</option>
@@ -367,7 +364,7 @@ form button {
     <button type="submit">Search</button>
 </form>
         <p>Welcome to My Job Portal! Search and get your dream job. We have thousands of job offerings for you. Don't forget to leave a like when you get a job. Goodluck with your job hunt!</p>
-        <a id="k" href="#" class="more-jobs">More Jobs</a>
+        <button type="submit">More Jobs</button>
     </div>
 <div class="pop">
     <a href="{% url 'contact' %}"><i id="pop" class="fa-solid fa-phone"></i></a>

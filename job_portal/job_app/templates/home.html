@@ -42,7 +42,7 @@ body {
             padding: 10px;
             font-size: 16px;
             border: 1px solid #ccc;
-            box-shadow: 0 6px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 2px 8px 8px #554f4f;
             border-radius: 5px;
             width: 180px;
         }
@@ -54,7 +54,7 @@ body {
             font-size: 16px;
             color: white;
             background-color:#8e7575;
-            box-shadow: 0 6px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 2px 8px 8px #554f4f;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -73,6 +73,7 @@ body {
             font-size: 16px;
             color: #8e7575;
             border: 1px solid#8e7575;
+            box-shadow: 2px 8px 8px #554f4f;
             border-radius: 5px;
             text-decoration: none;
             cursor: pointer;
@@ -96,7 +97,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 0 20px;
-    box-shadow: 0 6px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 8px 8px #554f4f;
     z-index: 1000;
     transition: background-color 0.3s;
 }
@@ -195,7 +196,7 @@ li a {
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    padding: 20px;
+    padding: 30px;
 }
 
 .job-card {
@@ -204,7 +205,7 @@ li a {
     border-radius: 8px;
     padding: 20px;
     width: 400px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 8px 8px #554f4f;
     position: relative;
     transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -370,7 +371,9 @@ footer {
         font-size: 1.5em;
     }
 }
-  
+.contain button{
+    box-shadow: 2px 8px 8px #554f4f;
+}
     </style>
 </head>
 <body>
@@ -405,15 +408,11 @@ footer {
         <h1>Fast-Track Your Career: Get Hired Today!</h1>
         <form method="GET" action="{% url 'job_list1' %}">
     <input type="text" placeholder="Job Keyword" name="job-keyword">
-    <select name="location">
+     <select name="location">
         <option value="">Select Location</option>
-        <option value="Bangalore">Bangalore</option>
-        <option value="Chennai">Chennai</option>
-        <option value="Delhi">Delhi</option>
-        <option value="Hyderabad">Hyderabad</option>
-        <option value="Jaipur">Jaipur</option>
-        <option value="Kolkata">Kolkata</option>
-        <option value="Patna">Patna</option>
+        {% for job in jobs %}
+          <option value="{{ job.location }}">{{ job.location }}</option>
+        {% endfor %}
     </select>
     <select name="job-type">
         <option value="">Choose Job Type</option>
@@ -423,17 +422,14 @@ footer {
     </select>
     <select name="industry">
         <option value="">Select Industry</option>
-        <option value="Advertising">Advertising</option>
-        <option value="Construction">Construction</option>
-        <option value="Education">Education</option>
-        <option value="Mining">Mining</option>
-        <option value="Technology">Technology</option>
-        <option value="Software developer">Software developer</option>
+        {% for job in jobs %}
+<option value="{{ job.industry }}">{{ job.industry }}</option>
+         {% endfor %}
     </select>
     <button type="submit">Search</button>
 </form>
         <p>Welcome to My Job Portal! Search and get your dream job. We have thousands of job offerings for you. Don't forget to leave a like when you get a job. Goodluck with your job hunt!</p>
-        <a id="k" href="#" class="more-jobs">More Jobs</a>
+     <button type="submit">More Jobs</button>
     </div>
 <div class="pop">
     <a href="{% url 'contact' %}"><i id="pop" class="fa-solid fa-phone"></i></a>
@@ -455,21 +451,6 @@ footer {
     {% endfor %}
 </div>
 
-
-<!-- <section>-->
-<!--    <h2 class="section-title">About Us</h2>-->
-<!--    <p>We are a leading job portal connecting job seekers with top employers. Our mission is to simplify the job search process and make it accessible for everyone.</p>-->
-<!--</section>-->
-
-<!--<section>-->
-<!--    <h2 class="section-title">Contact Us</h2>-->
-<!--    <p>If you have any questions or need support, feel free to reach out to us!</p>-->
-<!--    <div class="social-icons">-->
-<!--        <a href="#" class="fab fa-facebook-f"></a>-->
-<!--        <a href="#" class="fab fa-twitter"></a>-->
-<!--        <a href="#" class="fab fa-linkedin"></a>-->
-<!--    </div>-->
-<!--</section>-->
 
 <footer>
     <div class="footer-links">

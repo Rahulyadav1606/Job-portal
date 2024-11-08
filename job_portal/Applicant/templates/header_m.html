@@ -31,7 +31,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+            box-shadow: 2px 8px 8px #554f4f;
             z-index: 1000;
             transition: background-color 0.3s;
             border-radius: 8px;
@@ -75,6 +75,13 @@
             margin-right: 10px;
             cursor: pointer;
             display: flex;
+            align-items: center;
+        }
+        .user-info1 {
+            color: white;
+            font-weight: bold;
+            margin-right: 10px;
+            cursor: pointer;
             align-items: center;
         }
 
@@ -285,20 +292,17 @@
 </header>
 <div id="offcanvas" class="offcanvas">
     <span class="close-btn" onclick="toggleSidebar()">&times;</span>
-    <div class="user-info">
-        {% if applicant %} Applicant: {{ applicant.name }} {% endif %}
+    <div class="user-info1">
+        {% if applicant %}
+        <h3 style="font-weight: bold; color: white">Applicant : {{ applicant.name }} </h3>
+        <h5>User : {{applicant.username}}</h5>
+        {% endif %}
     </div>
     <a href="#">About Us</a>
-    {% if has_resume %}
-        <a href="{% url 'Alljobs' %}">Apply Jobs</a>
-        <a href="{% url 'view_applied_jobs' %}">Applied Jobs</a>
-    {% else %}
-        <a href="{% url 'upload_resume' %}">Create Resume</a>
-    {% endif %}
     <a href="{% url 'saved_jobs' %}">Saved jobs</a>
     <a href="{{ applicant.resume_set.first.resume_file.url }}">My Resume</a>
     <a href="#">Settings</a>
-    <a href="{% url 'logout' %}">Logout<i class="fas fa-sign-out-alt logout-icon"></i></a>
+    <a href="{% url 'logout' %}">Logout <i class="fas fa-sign-out-alt logout-icon"></i></a>
 </div>
 <!--<div class="pop">-->
 <!--    <a href="{% url 'contact' %}"><i id="pop" class="fa-solid fa-phone"></i></a>-->

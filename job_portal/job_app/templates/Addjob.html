@@ -8,50 +8,67 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color:#f4f1f1;
+            background-color: #f4f1f1;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 120vh;
             margin: 0;
-            overflow: hidden; /* Prevent scrolling */
+            padding: 20px; /* Adds padding to prevent scrolling */
+            box-sizing: border-box;
         }
         .form-container {
             background-color: white;
             padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
             width: 100%;
-            max-width: 450px;
-            max-height: 90vh;
-            overflow-y: auto;
+            max-width: 800px; /* Adjusted max-width */
+            box-sizing: border-box;
+            box-shadow: 2px 8px 8px #554f4f;
         }
         .form-container h2 {
             text-align: center;
             margin-bottom: 20px;
             color: white;
-            height: 30px;
-            font-weight: bolder;
+            font-weight: bold;
             font-size: 22px;
             background-color: #8e7575;
+            padding: 10px 0;
+            border-radius: 6px;
         }
-        .form-container label {
-            display: block;
-            margin-bottom: 8px;
+        .form-group {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .form-group label {
             font-weight: bold;
             color: #555;
             font-size: 14px;
+            display: block;
+            margin-bottom: 8px;
+        }
+        label {
+            font-weight: bold;
+            color: #555;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 8px;
         }
         .form-container input[type="text"],
         .form-container input[type="number"],
+        .form-container input[type="date"],
         .form-container select,
         .form-container textarea {
             width: 100%;
             padding: 10px;
-            margin-bottom: 15px;
             border: 1px solid #ccc;
             border-radius: 6px;
             font-size: 14px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
         }
         .form-container textarea {
             height: 80px;
@@ -66,72 +83,100 @@
             border-radius: 6px;
             cursor: pointer;
             font-size: 16px;
+            transition: background-color 0.3s ease;
+            margin-top: 15px;
         }
         .form-container button:hover {
             background-color: #486767;
         }
-              .notification {
-            display: none; /* Hidden by default */
+        .notification {
+            display: none;
             padding: 15px;
-            background-color: #4CAF50; /* Green */
+            background-color: #4CAF50;
             color: white;
             border-radius: 5px;
-            position: fixed; /* Stay in place */
-            top: 20px; /* Position it at the top */
-            right: 20px; /* Position it to the right */
-            z-index: 1000; /* Ensure it's on top of other elements */
-            transition: opacity 0.5s ease; /* Smooth transition for fade out */
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
         }
-             @media (max-width: 500px) {
-                 body{
-                     height: 150vh;
-                 }
-             }
+        .checkbox-container {
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        @media (max-width: 768px) {
+            .form-group {
+                grid-template-columns: 1fr; /* Stack inputs on smaller screens */
+            }
+        }
     </style>
-
 </head>
 <body>
 <div class="notification" id="notification"></div>
 <div class="form-container">
     <h2>{% if job %}{{ job.title }}{% else %}Add New Job{% endif %}</h2>
-
     <form method="post">
         {% csrf_token %}
-        <label for="title">Job Title</label>
-        <input type="text" id="title" name="title" placeholder="Enter Job Title" required value="{% if job %}{{ job.title }}{% else %}{% endif %}">
 
-        <label for="industry">Industry</label>
-        <input type="text" id="industry" name="industry" placeholder="Enter Industry" required value="{% if job %}{{ job.industry }}{% else %}{% endif %}">
+        <div class="form-group">
+            <div>
+                <label for="company_name">Company Name</label>
+                <input type="text" id="company_name" name="company_name" placeholder="Enter Company Name" required value="{% if job %}{{ job.company_name }}{% endif %}">
+            </div>
+            <div>
+                <label for="founded_date">Founded Date</label>
+                <input type="date" id="founded_date" name="founded_date" placeholder="Enter Founded Date" required value="{% if job %}{{ job.founded_date }}{% endif %}">
+            </div>
+            <div>
+                <label for="company_location">Company Location</label>
+                <input type="text" id="company_location" name="company_location" placeholder="Enter Company Location" required value="{% if job %}{{ job.company_location }}{% endif %}">
+            </div>
+        </div>
 
-        <label for="job_type">Job Type</label>
-        <select id="job_type" name="job_type" required>
-            <option value="">Choose Job Type</option>
-            <option value="Remote" {% if job and job.job_type == 'Remote' %}selected{% endif %}>Remote</option>
-            <option value="Onsite" {% if job and job.job_type == 'Onsite' %}selected{% endif %}>Onsite</option>
-            <option value="Hybrid" {% if job and job.job_type == 'Hybrid' %}selected{% endif %}>Hybrid</option>
-        </select>
+        <!-- Other input fields for job details -->
+        <div class="form-group">
+            <div>
+                <label for="title">Job Title</label>
+                <input type="text" id="title" name="title" placeholder="Enter Job Title" required value="{% if job %}{{ job.title }}{% endif %}">
+            </div>
+            <div>
+                <label for="industry">Industry</label>
+                <input type="text" id="industry" name="industry" placeholder="Enter Industry" required value="{% if job %}{{ job.industry }}{% endif %}">
+            </div>
 
-        <label for="location">Location</label>
-        <input type="text" id="location" name="location" placeholder="Enter Location" required value="{% if job %}{{ job.location }}{% else %}{% endif %}">
+            <div>
+                <label for="location">Job Location</label>
+                <input type="text" id="location" name="location" placeholder="Enter Job Location" required value="{% if job %}{{ job.location }}{% endif %}">
+            </div>
 
-        <label for="salary">Salary</label>
-        <input type="number" id="salary" name="salary" placeholder="Enter Salary" required value="{% if job %}{{ job.salary }}{% else %}{% endif %}">
+            <div>
+                <label for="job_type">Job Type</label>
+                <select id="job_type" name="job_type" required>
+                    <option value="">Choose Job Type</option>
+                    <option value="Remote" {% if job and job.job_type == 'Remote' %}selected{% endif %}>Remote</option>
+                    <option value="Onsite" {% if job and job.job_type == 'Onsite' %}selected{% endif %}>Onsite</option>
+                    <option value="Hybrid" {% if job and job.job_type == 'Hybrid' %}selected{% endif %}>Hybrid</option>
+                </select>
+            </div>
+            <div>
+                 <label for="salary">Salary</label>
+        <input type="number" id="salary" name="salary" placeholder="Enter Salary" required value="{% if job %}{{ job.salary }}{% endif %}">
+            </div>
+             <div>
+        <label for="vacancy_seats">Vacancy Seats</label>
+        <input type="number" id="vacancy_seats" name="vacancy_seats" placeholder="Enter Number of Vacancy Seats" required min="1" value="{% if job %}{{ job.vacancy_limit }}{% endif %}">
+    </div>
+        </div>
 
-        <label for="requirements">Job Requirements</label>
-        <textarea id="requirements" name="requirements" placeholder="Enter Job Requirements" required>
-            {% if job %}
-                {{ job.requirements }}
-            {% else %}
-            {% endif %}
-        </textarea>
+
+        <label for="requirements" >Job Requirements</label>
+        <textarea id="requirements" name="requirements" placeholder="Enter Job Requirements" required>{% if job %}{{ job.requirements }}{% endif %}</textarea>
 
         <label for="ideal_candidate">Ideal Candidate</label>
-        <textarea id="ideal_candidate" name="ideal_candidate" placeholder="Describe the Ideal Candidate" required>
-            {% if job %}
-                {{ job.ideal_candidate }}
-            {% else %}
-            {% endif %}
-        </textarea>
+        <textarea id="ideal_candidate" name="ideal_candidate" placeholder="Describe the Ideal Candidate" required>{% if job %}{{ job.ideal_candidate }}{% endif %}</textarea>
 
         <div class="checkbox-container">
             <input type="checkbox" id="availability" name="availability" {% if job and job.availability %}checked{% endif %}>
@@ -141,30 +186,25 @@
         <button type="submit">{% if job %}Update Job{% else %}Add Job{% endif %}</button>
     </form>
 </div>
- <script>
-        // Function to show notification
-        function showNotification(message) {
-            const notification = document.getElementById('notification');
-            notification.innerText = message; // Set the message
-            notification.style.display = 'block';
-            notification.style.opacity = 1; // Set opacity to fully visible
+<script>
+    function showNotification(message) {
+        const notification = document.getElementById('notification');
+        notification.innerText = message;
+        notification.style.display = 'block';
+        notification.style.opacity = 1;
 
-            // Fade out after 3 seconds
-            setTimeout(() => {
-                notification.style.opacity = 0; // Start fading out
-                setTimeout(() => {
-                    notification.style.display = 'none'; // Hide the notification
-                }, 500); // Wait for the fade out to complete
-            }, 3000); // Notification visible for 3 seconds
-        }
+        setTimeout(() => {
+            notification.style.opacity = 0;
+            setTimeout(() => { notification.style.display = 'none'; }, 500);
+        }, 3000);
+    }
 
-        // Check for messages and show notification
-        {% if messages %}
-            {% for message in messages %}
-                showNotification("{{ message }}"); // Call function to show message
-            {% endfor %}
-        {% endif %}
-    </script>
+    {% if messages %}
+        {% for message in messages %}
+            showNotification("{{ message }}");
+        {% endfor %}
+    {% endif %}
+</script>
 </body>
 </html>
 {% endblock %}

@@ -3,133 +3,122 @@
 {% block body %}
 <style>
     /* Styles for Saved Jobs Page */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    text-align: center;
-}
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        text-align: center;
+    }
 
-h2 {
-    color: #4a2e2e;
-    margin-top: 20px;
-}
+    h2 {
+        color: #4a2e2e;
+        margin-top: 40px;
+        font-weight: bold; /* Make the header bolder */
+        font-size: 30px; /* Increase font size */
+        text-transform: uppercase; /* Make text uppercase */
+        padding: 10px 20px; /* Add padding around the text */
+        /*background-color: #ffe6e6; !* Light background color *!*/
+        border-radius: 5px; /* Rounded corners */
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
 
-.saved-jobs {
-    width: 80%;
-    margin: 20px auto;
-}
+    }
 
-.saved-job-card {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    .saved-jobs {
+        width: 80%;
+        margin: 40px auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        align-items: center;
+    }
 
-.saved-job-card h3 {
-    color: #4a2e2e;
-    font-size: 18px;
-    margin: 0;
-    flex-basis: 25%;
-    text-align: left;
-}
+    .saved-job-card {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column; /* Stack elements vertically */
+        align-items: flex-start; /* Align items to the left */
+        width: 60%; /* Set a fixed width for compactness */
+        height: auto; /* Allow the height to adjust based on content */
+        transition: box-shadow 0.2s; /* Add transition for hover effect */
+    }
 
-.saved-job-card p {
-    color: #555;
-    margin: 0;
-    flex-basis: 15%;
-    text-align: left;
-}
+    .saved-job-card:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+    }
 
-.saved-job-card .time {
-    font-size: 12px;
-    color: #888;
-    flex-basis: 10%;
-    text-align: left;
-}
+    .saved-job-card h3 a {
+        text-decoration: none;
+        color: #4a2e2e;
+        font-size: 25px;
+        margin: 0;
+        font-weight: bold; /* Make the job title bolder */
+    }
+    .saved-job-card h3 a:hover{
+        color: #3e2222;
+    }
+    .saved-job-card p {
+        color: #555;
+        font-size: medium;
+        margin: 3px 0; /* Space between paragraphs */
+        font-weight: normal; /* Normal weight for details */
+    }
 
-.remove-btn {
-    background-color: transparent;
-    color: #d9534f;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    text-decoration: underline;
-}
+    .job-details {
+        font-size: 12px; /* Adjusted font size for details */
+        color: #333;
+    }
 
-.remove-btn:hover {
-    color: #c9302c;
-}
+    .remove-btn {
+        background-color: transparent;
+        color: #d9534f;
+        border: none;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none;
+        margin-top: 10px; /* Space above the button */
+        align-self: flex-end;
+        position: relative;
+        left: 650px;
+        bottom: -9px;
+    }
 
-/* Table styles similar to the provided image */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
+    .remove-btn:hover {
+        color: #c9302c;
+        text-decoration: underline;
+    }
 
-table th {
-    background-color: #8e6e6e;
-    color: #fff;
-    padding: 10px;
-    text-align: left;
-    font-weight: bold;
-}
-
-table td {
-    padding: 10px;
-    color: #333;
-    border-top: 1px solid #ddd;
-}
-
-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-table .remove-btn {
-    color: #d9534f;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-table .remove-btn:hover {
-    color: #c9302c;
-}
-
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+        .saved-job-card {
+            width: 90%; /* Full width on smaller screens */
+        }
+    }
 </style>
+
 <h2>Manage Saved Jobs</h2>
-<table>
-    <tr>
-        <th>Job Title</th>
-        <th>Industry</th>
-        <th>Job Type</th>
-        <th>Location</th>
-        <th>Salary</th>
-        <th>Saved</th>
-        <th>Action</th>
-    </tr>
+<div class="saved-jobs">
     {% for saved_job in saved_jobs %}
-    <tr>
-        <td>{{ saved_job.job.title }}</td>
-        <td>{{ saved_job.job.industry }}</td>
-        <td>{{ saved_job.job.job_type }}</td>
-        <td>{{ saved_job.job.location }}</td>
-        <td>{{ saved_job.job.salary }}</td>
-        <td>{{ saved_job.saved_at|timesince }} ago</td>
-        <td>
-            <form method="POST" action="{% url 'remove_saved_job' saved_job.id %}">
-                {% csrf_token %}
-                <button type="submit" class="remove-btn">Remove</button>
-            </form>
-        </td>
-    </tr>
+    <div class="saved-job-card">
+        <h3><a href="{% url 'job_detail' saved_job.job.id %}">{{ saved_job.job.title }} </a></h3>
+
+        <div class="job-details">
+            <p><strong>Industry:</strong> {{ saved_job.job.industry }}</p>
+            <p><strong>Job Type:</strong> {{ saved_job.job.job_type }}</p>
+            <p><strong>Location:</strong> {{ saved_job.job.location }}</p>
+            <p><strong>Salary:</strong> {{ saved_job.job.salary }}</p>
+        </div>
+        <form method="POST" action="{% url 'remove_saved_job' saved_job.id %}">
+            {% csrf_token %}
+            <button type="submit" class="remove-btn">Remove</button>
+        </form>
+        {{ saved_job.saved_at|timesince }} ago
+    </div>
     {% empty %}
-    <tr><td colspan="7">No saved jobs found.</td></tr>
+    <p>No saved jobs found.</p>
     {% endfor %}
-</table>
+</div>
 {% endblock %}

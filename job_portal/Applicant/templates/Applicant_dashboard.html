@@ -84,6 +84,94 @@
             }
         }
 
+        .job-card h3 {
+            text-align: center;
+            width: 100%;
+
+            color: #4a2e2e;
+
+            font-weight: bold;
+            font-size: 20px;
+            text-transform: uppercase;
+
+            border-radius: 5px;
+        }
+
+        .job-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+             margin: 50px auto;
+
+}
+
+        .job-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin: 0;
+        }
+
+        .job-details {
+            color: #666;
+            margin: 5px 0 10px;
+            font-size: 14px;
+        }
+
+        /* Status background colors */
+        .status {
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .status.pending {
+            background-color: #ffc107; /* Yellow for pending */
+        }
+
+        .status.rejected {
+            background-color: #dc3545; /* Red for rejected */
+        }
+
+        .status.interview {
+            background-color: #28a745; /* Green for interview */
+        }
+
+        .status.review {
+            background-color: #6783a3; /* Blue for review */
+        }
+
+        .view-details {
+            color: #718fb6;
+            font-size: 14px;
+            text-decoration: none;
+            font-weight: bold;
+            align-self: flex-end;
+            position: relative;
+            top: 9px;
+        }
+
+        .view-details:hover {
+            text-decoration: underline;
+        }
+
+        .time {
+            background-color: #e7f3fe; /* Light blue background */
+            border-left: 5px solid #2196F3; /* Blue left border */
+            padding: 10px; /* Padding for spacing */
+            border-radius: 4px; /* Slightly rounded corners */
+            margin-top: 10px; /* Space above the time block */
+            font-size: 14px; /* Font size */
+            color: #333; /* Dark text color */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
         @media (max-width: 400px) {
             .statistics {
                 margin-top: 80px;
@@ -108,6 +196,16 @@
             }
         }
     </style>
+<script>
+        function toggleInterviews() {
+            const interviewCards = document.getElementById('interview-cards');
+            if (interviewCards.style.display === 'none' || interviewCards.style.display === '') {
+                interviewCards.style.display = 'block';
+            } else {
+                interviewCards.style.display = 'none';
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="statistics">
@@ -116,13 +214,31 @@
         <p>Applied Jobs</p>
     </div>
     <div class="stat-box">
-    <h3>{{ saved_jobs_count }}</h3>  <!-- Display saved jobs count -->
-    <p>Saved Jobs</p>
-</div>
-    <div class="stat-box">
-        <h3>0</h3>
+        <h3>{{ saved_jobs_count }}</h3>
+        <p>Saved Jobs</p>
+    </div>
+    <div class="stat-box" onclick="toggleInterviews()" style="cursor: pointer;">
+        <h3 style="color: green">{{ interviews_count }}</h3>
         <p>Interviews Scheduled</p>
     </div>
+</div>
+
+<!-- Optional: Display interviews separately -->
+<div id="interview-cards" style="display: none;">
+    {% for interview in interviews %}
+    <div class="job-card">
+        <h3>Scheduled Interviews</h3>
+        <p class="job-title">{{ interview.job.title }}</p>
+        <p class="job-details">
+            Company: {{ interview.job.company_name }} |
+            Status: <span class="status interview">{{ interview.get_status_display }}</span>
+        </p>
+        <div class="time">
+            <p>Your Interview Scheduled At: <strong>{{ interview.interview_time }}</strong></p>
+        </div>
+        <a href="{% url 'job_detail' interview.job.id %}" class="view-details">View Details</a>
+    </div>
+    {% endfor %}
 </div>
 
 <footer>

@@ -33,10 +33,17 @@ def applicant_signup(request):
 def Applicant_dashboard(request):
     applicant_id = request.session.get('applicant_id')
     applied_jobs_count = 0
+    interviews_count = 0
+    applied_jobs = []  # List to hold applications
     if applicant_id:
         try:
             applicant = Applicant.objects.get(id=applicant_id)
-            applied_jobs_count = Application.objects.filter(applicant=applicant).count()
+            # Get all applications for the applicant
+            applied_jobs = Application.objects.filter(applicant=applicant)
+            applied_jobs_count = applied_jobs.count()
+            # Filter for interviews
+            interviews = applied_jobs.filter(status='interview')  # Assuming 'interview' is the status for interviews
+            interviews_count = interviews.count()
             has_resume = Resume.objects.filter(applicant=applicant).exists()
         except Applicant.DoesNotExist:
             applicant = None
@@ -49,8 +56,12 @@ def Applicant_dashboard(request):
         'applicant': applicant,
         'has_resume': has_resume,
         'applied_jobs_count': applied_jobs_count,
+        'interviews_count': interviews_count,
+        'applied_jobs': applied_jobs,  # Pass all applications to the template
+        'interviews': interviews,  # Pass interview applications to the template
         'request': request
     })
+
 
 
 def applicant_login(request):
@@ -179,7 +190,7 @@ def save_job(request, job_id):
     if request.method == 'POST':
         applicant_id = request.session.get('applicant_id')
         job = get_object_or_404(Job, id=job_id)
-        SavedJob.objects.get_or_create(applicant_id=applicant_id, job=job)  # Avoid duplicates
+        SavedJob.objects.get_or_create(applicant_id=applicant_id, job=job)
         messages.success(request, f"{job.title} has been saved to your bookmarks.")
         return redirect('job_detail', job_id=job.id)
 
