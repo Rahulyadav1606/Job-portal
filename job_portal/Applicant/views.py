@@ -147,7 +147,7 @@ def applicant_logout(request):
 
 def Alljobs(request):
 
-    jobs = Job.objects.all()
+    jobs = Job.objects.order_by('-created_at')[:9]
 
     keyword = request.GET.get('job-keyword')
     location = request.GET.get('location')

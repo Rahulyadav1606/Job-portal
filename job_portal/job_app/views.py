@@ -139,6 +139,7 @@ def home(request):
 
 
 def job_detail(request, job_id):
+    jobs = Job.objects.all()
     job = get_object_or_404(Job, id=job_id)
     applicant_id = request.session.get('applicant_id')
     applicant_username = None
@@ -163,9 +164,10 @@ def job_detail(request, job_id):
 
     if request.user.is_authenticated and not applicant_id:
         recruiter_username = request.user.username
-
+    recommended_jobs = Job.objects.exclude(application__applicant_id=applicant_id).exclude(id=job_id)
     return render(request, 'ViewDetails.html', {
         'job': job,
+        'jobs': recommended_jobs,
         'applicant_username': applicant_username,
         'recruiter_username': recruiter_username,
         'has_resume': has_resume,

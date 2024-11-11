@@ -198,7 +198,28 @@ li a {
     gap: 20px;
     padding: 30px;
 }
+       ::-webkit-scrollbar {
+    width: 12px; /* Set the width of the scrollbar */
+}
 
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Set the background color of the scrollbar track */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #8e7575; /* Set the color of the scrollbar thumb */
+    border-radius: 10px; /* Round the corners of the scrollbar thumb */
+    border: 3px solid #f1f1f1; /* Add space between thumb and track */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #6b5a5a; /* Change color on hover */
+}
+
+::-webkit-scrollbar-button {
+    display: none; /* Hide the scrollbar buttons */
+}
 .job-card {
     background-color: white;
     border: 1px solid #ddd;
@@ -322,16 +343,18 @@ footer {
 
 @media (max-width: 768px) {
     header {
-        flex-direction: column;
-        height: auto;
+        flex-direction: row;
+        height: 50px;
+
     }
 
     header ul {
-        flex-direction: column;
+        flex-direction: row;
     }
 
     .container {
         max-width: 100%;
+        flex-direction: column;
         padding: 10px;
     }
 

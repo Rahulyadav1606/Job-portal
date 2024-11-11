@@ -12,11 +12,37 @@
             padding: 0;
             box-sizing: border-box;
         }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f1f1;
-            padding-top: 60px; /* Ensure content is below fixed header */
-        }
+       body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f1f1;
+    padding-top: 60px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Prevent default scrollbars */
+}
+       ::-webkit-scrollbar {
+    width: 12px; /* Set the width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Set the background color of the scrollbar track */
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #8e7575; /* Set the color of the scrollbar thumb */
+    border-radius: 10px; /* Round the corners of the scrollbar thumb */
+    border: 3px solid #f1f1f1; /* Add space between thumb and track */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #6b5a5a; /* Change color on hover */
+}
+
+::-webkit-scrollbar-button {
+    display: none; /* Hide the scrollbar buttons */
+}
         header {
             position: fixed;
             top: 0;
@@ -41,12 +67,12 @@
             display: flex;
             align-items: center;
         }
-        li {
+         li {
             margin: 15px;
             display: flex;
             align-items: center;
         }
-        a {
+      header a {
             text-decoration: none;
             color: white;
             font-weight: bold;
@@ -72,8 +98,8 @@
 
         .bookmark-icon {
             position: absolute;
-            top: 20px;
-            right: 20px;
+            top: 140px;
+            right: 440px;
             background: none;
             border: none;
             color: #8e7575;
@@ -84,13 +110,73 @@
             color: indianred;
         }
         .container {
-            position: relative;
-            width: 80%;
-            margin: 100px auto;
+            display: flex;
+            gap: 20px;
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .job-details {
+            flex: 0 0 80%;
+            overflow-y: auto;
+            height: calc(100vh - 120px); /* Full height minus header */
+        }
+        .recommended-jobs {
+            align-items: center;
+            flex: 0 0 26%;
+            background-color: #f8f9fa;
+            padding: 5px;
+            border-radius: 10px;
+            box-shadow: 2px 8px 8px #554f4f;
+            height: calc(100vh - 100px); /* Full height minus header */
+            overflow-y: auto;
+        }
+         .recommended-jobs ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .recommended-jobs li {
+            background-color: white;
+            border-radius: 10px;
+            /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .recommended-jobs h4 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+
+        }
+
+        .recommended-jobs li p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .recommended-jobs li .card-footer {
+            font-size: 0.875rem;
+            color: #999;
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        .recommended-jobs h4 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .recommended-jobs ul li a{
+            color: black;
         }
         .job-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         .job-header h1 {
             font-size: 2.5rem;
@@ -119,9 +205,6 @@
         .apply-btn:hover {
             background-color: indianred;
         }
-        .job-details {
-            margin-bottom: 40px;
-        }
         .section {
             margin-bottom: 20px;
         }
@@ -137,18 +220,21 @@
         .cards-container {
             display: flex;
             gap: 20px;
+            flex-wrap: wrap;
+            margin-right: 10px;
+             margin-top: -180px;
         }
         .card {
             position: relative;
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            height: 40vh;
-            padding: 20px;
             flex: 1;
+            min-height: 300px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            padding: 20px;
         }
         .card h5 {
             font-size: 1.25rem;
@@ -165,6 +251,93 @@
             color: #999;
             text-align: right;
         }
+        .job-details.full-width {
+        flex: 0 0 100%; /* Set to full width when recommended-jobs is hidden */
+    }
+       @media (max-width: 768px) {
+        header {
+            flex-direction: column;
+            padding:0 0;
+            height: auto;
+            box-shadow: none;
+            align-items: center;
+        }
+        header ul {
+            flex-direction: column;
+            gap: 5px;
+        }
+        .container {
+            flex-direction: column;
+            padding: 10px;
+            height: auto;
+        }
+        .job-details {
+            padding: 10px;
+            height: auto; /* Allow full scrolling on smaller screens */
+            margin-top:35px ;
+        }
+        .job-header h1 {
+            font-size: 1.8rem; /* Adjust font sizes */
+        }
+        .job-header p {
+            font-size: 1rem;
+        }
+        .cards-container {
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 0;
+        }
+        .card {
+            padding: 15px;
+        }
+        .apply-btn {
+            width: 100%;
+            font-size: 0.9rem;
+            padding: 8px;
+        }
+    }
+
+    @media (max-width: 500px) {
+        header {
+            height: auto;
+            padding: 10px;
+        }
+        .job-header h1 {
+            font-size: 1.5rem;
+        }
+        .job-header p, .section h3, .apply-btn {
+            font-size: 0.9rem;
+        }
+        .bookmark-icon {
+            top: 100px;
+            right: 20px;
+        }
+        .recommended-jobs {
+            display: none; /* Hide recommended jobs on very small screens */
+        }
+        .job-details.full-width {
+            flex: 1;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .job-header h1 {
+            font-size: 1.2rem;
+        }
+        .apply-btn {
+            font-size: 0.8rem;
+            padding: 6px;
+        }
+        .card-footer {
+            font-size: 0.75rem;
+        }
+        .card h5 {
+            font-size: 1rem;
+        }
+    }
+     .job-header a{
+         text-decoration: none;
+     }
     </style>
 </head>
 <body>
@@ -173,7 +346,6 @@
 {% elif applicant_username %}
     {% include "header_m.html" %}
 {% else %}
-    <!-- Optional: Include a generic header for non-logged-in users -->
     <header>
         <div class="logo"><a href="{% url 'home' %}">Job Portal</a></div>
         <ul>
@@ -181,13 +353,12 @@
         </ul>
     </header>
 {% endif %}
-
 <div class="container">
     {% if is_applicant %}
         {% if has_saved %}
             <!-- Show tick icon if the job is saved -->
             <span title="Job Bookmarked">
-                <i class="fa-solid fa-check" style="font-size: large; color: green;">saved</i>
+                <i class="fa-solid fa-check" style="font-size: large; color: green; position: absolute">saved</i>
             </span>
         {% else %}
             <!-- Show bookmark icon if the job is not saved -->
@@ -199,78 +370,88 @@
             </form>
         {% endif %}
     {% endif %}
+<div class="container">
+    <div class="job-details {% if not is_applicant %}full-width{% endif %}">
+        <div class="job-header">
+            <h1>{{ job.title }}</h1>
+            <p>{{ job.location }} | {{ job.job_type }} | NGN{{ job.salary }}</p>
 
-    <!-- Job Title and Details -->
-<div class="job-header">
-    <h1>{{ job.title }}</h1>
-    <p>{{ job.location }} | {{ job.job_type }} | NGN{{ job.salary }}</p>
-
-    {% if recruiter_username %}
-        <!-- Display the recruiter-specific message -->
-        <p>You can view or edit job details here.</p>
-    {% else %}
-        <!-- Check if the job is available for applicants -->
-        {% if is_available %}
-            {% if is_applicant %}
-                {% if has_applied %}
-                    <p class="already-applied">You already applied for this job</p>
-                {% else %}
-                    <a class="apply-btn" href="{% url 'apply_for_job' job.id %}">Apply for this Job</a>
-                {% endif %}
+            {% if recruiter_username %}
+                <p><a href="{% url 'update_job' job.id %}" class="update-job">Update Job <i class="fas fa-edit icon"></i></a></p>
             {% else %}
-                <a class="apply-btn" href="{% url 'applicant_login' %}">Login to Apply</a>
+                {% if is_available %}
+                    {% if is_applicant %}
+                        {% if has_applied %}
+                            <p class="already-applied">You already applied for this job</p>
+                        {% else %}
+                            <a class="apply-btn" href="{% url 'apply_for_job' job.id %}">Apply for this Job</a>
+                        {% endif %}
+                    {% else %}
+                        <a class="apply-btn" href="{% url 'applicant_login' %}">Login to Apply</a>
+                    {% endif %}
+                {% else %}
+                    <p class="job-not-available">Job Not Available</p>
+                {% endif %}
             {% endif %}
-        {% else %}
-            <p class="job-not-available">Job Not Available</p>
-        {% endif %}
+        </div>
+
+        <div class="job-details">
+            <div class="section">
+                <h3>Job Requirements</h3>
+                <p>{{ job.requirements }}</p>
+            </div>
+            <div class="section">
+                <h3>Ideal Candidate</h3>
+                <p>{{ job.ideal_candidate }}</p>
+            </div>
+        </div>
+
+        <div class="cards-container">
+            <div class="card">
+                <h5>Other Details</h5>
+                <p>{{ job.other_details }}</p>
+                <div class="card-footer">Last updated {{ job.created_at|timesince }}</div>
+            </div>
+
+            <div class="card">
+                <h5>About the Company</h5>
+                <p>{{ job.company_name }}</p>
+                <p>{{ job.company_location }}</p>
+                <p>{{ job.founded_date }}</p>
+                <div class="card-footer">Last updated {{ job.created_at|timesince }}</div>
+            </div>
+
+            <div class="card">
+                <h5>Related Jobs</h5>
+                <p>This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                <div class="card-footer">Last updated {{ job.created_at|timesince }}</div>
+            </div>
+        </div>
+    </div>
+   {% if is_applicant %}
+
+    <div class="recommended-jobs">
+        <h4>Recommended Jobs</h4>
+        <ul>
+            {% for job in jobs %}
+                <li>
+                    <a href="{% url 'job_detail' job.id %}"><strong>{{ job.title }}</strong><br>
+                    {{job.salary }} | {{ job.company_name }}
+                     <div class="card-footer">Last updated {{ job.created_at|timesince }}</div>
+                        </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
     {% endif %}
-</div>
-
-
-
-
-    <div class="job-details">
-        <div class="section">
-            <h3>Job Requirements</h3>
-            <p>{{ job.requirements }}</p>
-        </div>
-        <div class="section">
-            <h3>Ideal Candidate</h3>
-            <p>{{ job.ideal_candidate }}</p>
-        </div>
-    </div>
-
-    <div class="cards-container">
-        <div class="card">
-            <h5>Other Details</h5>
-            <p>{{ job.other_details }}</p>
-            <div class="card-footer">Last updated {{ job.created_at|timesince }}</div>
-        </div>
-
-        <div class="card">
-            <h5>About the Company</h5>
-            <p>{{ job.company_name }}</p>
-            <p>{{ job.company_location }}</p>
-            <p>{{ job.founded_date }}</p>
-            <div class="card-footer">Last updated {{ job.created_at|timesince }}</div>
-        </div>
-
-        <div class="card">
-            <h5>Related Jobs</h5>
-            <p>This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-            <div class="card-footer">Last updated {{ job.created_at|timesince }}</div>
-        </div>
-    </div>
 </div>
 
 <script>
     const elements = document.getElementsByClassName("already-applied");
     for (let i = 0; i < elements.length; i++) {
-        elements[i].style.color = "red";
+        elements[i].style.display = "none";
     }
-
-
 </script>
-
 </body>
 </html>

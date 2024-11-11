@@ -246,7 +246,7 @@
                             </span>
                         </td>
                         <td>
-                            <a href="{% url 'update_job' job_data.job.id %}" class="update-job">Update Job</a>
+                            <a href="{% url 'update_job' job_data.job.id %}" class="update-job">Update Job <i class="fas fa-edit icon"></i></a>
                             <a href="{% url 'delete_job' job_data.job.id %}" class="delete-job" onclick="return confirm('Are you sure you want to delete this job?');">Delete</a>
                         </td>
                     </tr>
